@@ -5,6 +5,7 @@ import { Button, message, Spin, Select, Radio } from 'antd';
 import { CameraOutlined } from '@ant-design/icons';
 import * as htmlToImage from 'html-to-image';
 import rehypePrism from 'rehype-prism-plus';
+import { Analytics } from "@vercel/analytics/react";
 
 const AppContainer = styled.div`
   max-width: 1400px;
@@ -15,12 +16,29 @@ const AppContainer = styled.div`
 const Title = styled.h1`
   text-align: center;
   color: #1a1a1a;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
   font-size: 2.4em;
   font-weight: 800;
   background: linear-gradient(120deg, #2b4c7d, #567bbd);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+`;
+
+const AuthorInfo = styled.div`
+  text-align: center;
+  margin-bottom: 40px;
+  color: #64748b;
+  font-size: 0.95em;
+  
+  a {
+    color: #2563eb;
+    text-decoration: none;
+    margin-left: 4px;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 const ContentLayout = styled.div`
@@ -461,23 +479,45 @@ const themes = {
 };
 
 function App() {
-  const [value, setValue] = useState(`### 探索无限可能
+  const [value, setValue] = useState(`# AIer 使用指南 📝
 
-这是一个将 Markdown 转换为精美图片的工具，让你的分享更具创意和格调。
+欢迎使用 AIer，一个优雅的 Markdown 转图片工具！
 
-- 多种主题风格，随心切换
-- 优雅的排版设计
-- 完美适配小红书
+### 🎯 使用流程
 
-> 用优雅的方式，记录美好生活
+1. **生成文案内容**
+   - 使用 DeepSeek R1 模型生成专业文案
+   - 根据场景选择合适的提示词
+   - 调整生成内容直至满意
 
-\`\`\`js
-const life = new Journey();
-life.setStyle('elegant');
-life.start();
+2. **编辑与排版**
+   - 将生成的文案复制到编辑器
+   - 使用 Markdown 语法美化排版
+   - 支持代码块、引用、列表等格式
+
+3. **主题与导出**
+   - 选择合适的主题风格
+   - 预览效果并调整
+   - 点击"导出图片"保存
+
+### 💡 小技巧
+
+> 善用 Markdown 语法能让文章更有结构感
+
+例如代码展示：
+\`\`\`python
+def hello_aier():
+    print("让创作更优雅！")
 \`\`\`
 
-祝你创作愉快！`);
+### 🎨 主题说明
+
+- **明亮**：清新简约
+- **温暖**：柔和舒适
+- **优雅**：专业大方
+- **暗黑**：护眼美观
+
+现在，开始你的创作之旅吧！`);
   const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState('elegant');
   const previewRef = useRef(null);
@@ -523,7 +563,11 @@ life.start();
 
   return (
     <AppContainer>
+      <Analytics />
       <Title>AIer - 优雅的图片创作工具</Title>
+      <AuthorInfo>
+        作者：<a href="https://www.xiaohongshu.com/user/profile/6620908f0000000007007a81?xhsshare=CopyLink" target="_blank" rel="noopener noreferrer">宇宙生存指南</a>
+      </AuthorInfo>
       
       <ControlGroup>
         <Radio.Group
