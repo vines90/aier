@@ -54,11 +54,20 @@ const ContentLayout = styled.div`
   display: flex;
   gap: 40px;
   margin-bottom: 40px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 20px;
+  }
 `;
 
 const EditorSection = styled.div`
   flex: 1;
   min-width: 0;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const PreviewSection = styled.div`
@@ -67,6 +76,11 @@ const PreviewSection = styled.div`
   position: sticky;
   top: 20px;
   height: fit-content;
+
+  @media (max-width: 768px) {
+    position: static;
+    width: 100%;
+  }
 `;
 
 const EditorContainer = styled.div`
@@ -77,6 +91,10 @@ const EditorContainer = styled.div`
     background: #ffffff;
     height: calc(100vh - 250px) !important;
     color: #2c3e50 !important;
+
+    @media (max-width: 768px) {
+      height: 300px !important;
+    }
   }
   .w-md-editor-toolbar {
     border-radius: 12px 12px 0 0;
@@ -196,6 +214,10 @@ const PreviewContainer = styled.div`
   font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   position: relative;
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 24px 20px;
+  }
 
   &::before {
     content: '';
@@ -407,6 +429,11 @@ const StyledButton = styled(Button)`
   font-size: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+
+  @media (max-width: 768px) {
+    width: 100%;
+    max-width: 200px;
+  }
 `;
 
 const ControlGroup = styled.div`
@@ -414,6 +441,12 @@ const ControlGroup = styled.div`
   justify-content: center;
   gap: 20px;
   margin-bottom: 35px;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
   
   .ant-radio-button-wrapper {
     border-radius: 6px;
@@ -428,6 +461,19 @@ const ControlGroup = styled.div`
     
     &:last-child {
       border-radius: 6px;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 13px;
+      padding: 4px 12px;
+    }
+  }
+
+  .ant-radio-group {
+    @media (max-width: 768px) {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
     }
   }
 `;
