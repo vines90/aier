@@ -539,51 +539,124 @@ const themes = {
     preBackground: '#2d3748',
     preCodeColor: '#e2e8f0',
     accentColor: '#60a5fa'
+  },
+  nature: {
+    background: '#f0f7f4',
+    textColor: '#2d3b36',
+    titleColor: '#1b2b26',
+    borderColor: '#cce3d8',
+    blockquoteBackground: '#e6f2ec',
+    blockquoteColor: '#435d54',
+    codeBackground: '#e6f2ec',
+    codeColor: '#0d503c',
+    preBackground: '#e6f2ec',
+    preCodeColor: '#2d3b36',
+    accentColor: '#2d6a4f'
+  },
+  sunset: {
+    background: '#fff9f5',
+    textColor: '#4b3c43',
+    titleColor: '#2b1c23',
+    borderColor: '#f3d8d3',
+    blockquoteBackground: '#fef2ed',
+    blockquoteColor: '#6d4c55',
+    codeBackground: '#fef2ed',
+    codeColor: '#c43d54',
+    preBackground: '#fef2ed',
+    preCodeColor: '#4b3c43',
+    accentColor: '#e85d75'
+  },
+  ocean: {
+    background: '#f5f9ff',
+    textColor: '#2c4159',
+    titleColor: '#1a2c43',
+    borderColor: '#d8e6f6',
+    blockquoteBackground: '#edf3fc',
+    blockquoteColor: '#456185',
+    codeBackground: '#edf3fc',
+    codeColor: '#0954a5',
+    preBackground: '#edf3fc',
+    preCodeColor: '#2c4159',
+    accentColor: '#1e88e5'
+  },
+  mint: {
+    background: '#f4fbfa',
+    textColor: '#2c4a46',
+    titleColor: '#1a332f',
+    borderColor: '#d5eeeb',
+    blockquoteBackground: '#e8f7f5',
+    blockquoteColor: '#427369',
+    codeBackground: '#e8f7f5',
+    codeColor: '#0c8577',
+    preBackground: '#e8f7f5',
+    preCodeColor: '#2c4a46',
+    accentColor: '#14b8a6'
   }
 };
 
 function App() {
-  const [value, setValue] = useState(`# AIer User Guide 📝
+  const [value, setValue] = useState(`# AIer - Markdown to Image Converter 📝
 
-Welcome to AIer, an elegant Markdown to Image converter!
+Welcome to AIer, your professional tool for converting Markdown to beautiful images!
 
-### 🎯 How to Use
+## 📘 What is Markdown?
 
-1. **Generate Content**
-   - Use DeepSeek R1 model for professional content
-   - Choose appropriate prompts for your scenario
-   - Refine the generated content until satisfied
+Markdown is a popular markup language that makes it easy to format text for the web. Created by John Gruber in 2004, it has become the standard for:
 
-2. **Edit & Format**
-   - Copy your content to the editor
-   - Beautify layout with Markdown syntax
-   - Supports code blocks, quotes, lists, and more
+- **Content Creation**: Write blog posts, documentation, and notes with simple formatting
+- **Documentation**: Used by GitHub, GitLab, and major tech companies for technical docs
+- **Social Media**: Create well-formatted posts for platforms like GitHub, Reddit, and Discord
+- **Note Taking**: Popular note-taking apps like Notion and Obsidian use Markdown
+- **Web Content**: Easily convert to HTML for websites and blogs
 
-3. **Theme & Export**
-   - Select your preferred theme
-   - Preview and adjust
-   - Click "Export Image" to save
+### ✨ Why Choose Markdown?
+
+1. **Simple Syntax**: Use \`#\` for headings, \`*\` for lists, \`>\` for quotes
+2. **Platform Independent**: Works everywhere, from simple text editors to advanced apps
+3. **Future Proof**: Your content stays readable even without formatting
+4. **Versatile Output**: Convert to HTML, PDF, images, and more
+
+## 🎯 How to Use AIer
+
+1. **Write or Paste Content**
+   - Use our Markdown editor
+   - Support for headings, lists, code blocks
+   - Real-time preview as you type
+
+2. **Style Your Content**
+   - Choose from multiple professional themes
+   - Customize the look and feel
+   - Perfect for social media posts
+
+3. **Export and Share**
+   - High-quality image export
+   - Optimized for social platforms
+   - Multiple theme options
 
 ### 💡 Pro Tips
 
-> Using Markdown syntax effectively makes your content more structured
+> "Good documentation is like a love letter to your future self" - Damian Conway
 
-Example code block:
-\`\`\`python
-def hello_aier():
-    print("Make creation elegant!")
+Try this example code block:
+\`\`\`markdown
+# Your Title
+## Subtitle
+- List item 1
+- List item 2
+
+> Important quote
 \`\`\`
 
-### 🎨 Available Themes
+### 🎨 Theme Gallery
 
-- **Light**: Clean & minimal
-- **Warm**: Soft & comfortable
-- **Elegant**: Professional & stylish
-- **Dark**: Eye-friendly & modern
+- **Light**: Professional and clean
+- **Warm**: Soft and engaging
+- **Elegant**: Modern and stylish
+- **Dark**: Easy on the eyes
 
-Start your creative journey now!`);
+Ready to transform your Markdown into beautiful images? Start creating now!`);
   const [loading, setLoading] = useState(false);
-  const [theme, setTheme] = useState('elegant');
+  const [theme, setTheme] = useState('warm');
   const previewRef = useRef(null);
 
   const handleExport = async () => {
@@ -640,6 +713,10 @@ Start your creative journey now!`);
           <Radio.Button value="warm">Warm</Radio.Button>
           <Radio.Button value="elegant">Elegant</Radio.Button>
           <Radio.Button value="dark">Dark</Radio.Button>
+          <Radio.Button value="nature">Nature</Radio.Button>
+          <Radio.Button value="sunset">Sunset</Radio.Button>
+          <Radio.Button value="ocean">Ocean</Radio.Button>
+          <Radio.Button value="mint">Mint</Radio.Button>
         </Radio.Group>
 
         <StyledButton 
