@@ -41,6 +41,15 @@ const AuthorInfo = styled.div`
   }
 `;
 
+const Copyright = styled.div`
+  text-align: center;
+  padding: 20px 0;
+  color: #64748b;
+  font-size: 0.9em;
+  margin-top: 40px;
+  border-top: 1px solid #e2e8f0;
+`;
+
 const ContentLayout = styled.div`
   display: flex;
   gap: 40px;
@@ -479,45 +488,45 @@ const themes = {
 };
 
 function App() {
-  const [value, setValue] = useState(`# AIer 使用指南 📝
+  const [value, setValue] = useState(`# AIer User Guide 📝
 
-欢迎使用 AIer，一个优雅的 Markdown 转图片工具！
+Welcome to AIer, an elegant Markdown to Image converter!
 
-### 🎯 使用流程
+### 🎯 How to Use
 
-1. **生成文案内容**
-   - 使用 DeepSeek R1 模型生成专业文案
-   - 根据场景选择合适的提示词
-   - 调整生成内容直至满意
+1. **Generate Content**
+   - Use DeepSeek R1 model for professional content
+   - Choose appropriate prompts for your scenario
+   - Refine the generated content until satisfied
 
-2. **编辑与排版**
-   - 将生成的文案复制到编辑器
-   - 使用 Markdown 语法美化排版
-   - 支持代码块、引用、列表等格式
+2. **Edit & Format**
+   - Copy your content to the editor
+   - Beautify layout with Markdown syntax
+   - Supports code blocks, quotes, lists, and more
 
-3. **主题与导出**
-   - 选择合适的主题风格
-   - 预览效果并调整
-   - 点击"导出图片"保存
+3. **Theme & Export**
+   - Select your preferred theme
+   - Preview and adjust
+   - Click "Export Image" to save
 
-### 💡 小技巧
+### 💡 Pro Tips
 
-> 善用 Markdown 语法能让文章更有结构感
+> Using Markdown syntax effectively makes your content more structured
 
-例如代码展示：
+Example code block:
 \`\`\`python
 def hello_aier():
-    print("让创作更优雅！")
+    print("Make creation elegant!")
 \`\`\`
 
-### 🎨 主题说明
+### 🎨 Available Themes
 
-- **明亮**：清新简约
-- **温暖**：柔和舒适
-- **优雅**：专业大方
-- **暗黑**：护眼美观
+- **Light**: Clean & minimal
+- **Warm**: Soft & comfortable
+- **Elegant**: Professional & stylish
+- **Dark**: Eye-friendly & modern
 
-现在，开始你的创作之旅吧！`);
+Start your creative journey now!`);
   const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState('elegant');
   const previewRef = useRef(null);
@@ -564,10 +573,7 @@ def hello_aier():
   return (
     <AppContainer>
       <Analytics />
-      <Title>AIer - 优雅的图片创作工具</Title>
-      <AuthorInfo>
-        作者：<a href="https://www.xiaohongshu.com/user/profile/6620908f0000000007007a81?xhsshare=CopyLink" target="_blank" rel="noopener noreferrer">宇宙生存指南</a>
-      </AuthorInfo>
+      <Title>AIer - Elegant Markdown to Image Converter</Title>
       
       <ControlGroup>
         <Radio.Group
@@ -576,10 +582,10 @@ def hello_aier():
           buttonStyle="solid"
           size="large"
         >
-          <Radio.Button value="light">明亮</Radio.Button>
-          <Radio.Button value="warm">温暖</Radio.Button>
-          <Radio.Button value="elegant">优雅</Radio.Button>
-          <Radio.Button value="dark">暗黑</Radio.Button>
+          <Radio.Button value="light">Light</Radio.Button>
+          <Radio.Button value="warm">Warm</Radio.Button>
+          <Radio.Button value="elegant">Elegant</Radio.Button>
+          <Radio.Button value="dark">Dark</Radio.Button>
         </Radio.Group>
 
         <StyledButton 
@@ -589,7 +595,7 @@ def hello_aier():
           loading={loading}
           size="large"
         >
-          导出图片
+          Export Image
         </StyledButton>
       </ControlGroup>
 
@@ -646,6 +652,10 @@ def hello_aier():
           </Spin>
         </PreviewSection>
       </ContentLayout>
+
+      <Copyright>
+        © {new Date().getFullYear()} AIer. All rights reserved. Made with ❤️
+      </Copyright>
     </AppContainer>
   );
 }
