@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import styled from 'styled-components';
-import { Button, message, Spin, Select, Radio } from 'antd';
+import { Button, message, Spin, Radio } from 'antd';
 import { CameraOutlined } from '@ant-design/icons';
 import * as htmlToImage from 'html-to-image';
 import rehypePrism from 'rehype-prism-plus';
@@ -10,7 +10,12 @@ import { Analytics } from "@vercel/analytics/react";
 const AppContainer = styled.div`
   max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 20px;
+  overflow-x: hidden;
+  
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
 
 const Title = styled.h1`
@@ -22,6 +27,10 @@ const Title = styled.h1`
   background: linear-gradient(120deg, #2b4c7d, #567bbd);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  
+  @media (max-width: 768px) {
+    font-size: 1.8em;
+  }
 `;
 
 const AuthorInfo = styled.div`
@@ -583,7 +592,6 @@ Start your creative journey now!`);
     try {
       setLoading(true);
       
-      // 获取预览容器的实际高度
       const previewElement = previewRef.current;
       const contentHeight = previewElement.scrollHeight;
       const contentWidth = previewElement.scrollWidth;
@@ -607,9 +615,9 @@ Start your creative journey now!`);
       link.href = dataUrl;
       link.click();
       
-      message.success('图片导出成功！');
+      message.success('Export successful!');
     } catch (err) {
-      message.error('导出失败，请重试');
+      message.error('Export failed, please try again');
       console.error(err);
     } finally {
       setLoading(false);
@@ -655,7 +663,7 @@ Start your creative journey now!`);
               hideToolbar={false}
               enableScroll={true}
               textareaProps={{
-                placeholder: '在这里输入 Markdown 内容...',
+                placeholder: 'Enter your Markdown content here...',
                 style: {
                   fontSize: '15px',
                   lineHeight: '1.8',
