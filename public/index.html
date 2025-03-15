@@ -8,34 +8,44 @@
     <meta name="msapplication-TileColor" content="#2b4c7d" />
     <meta name="google-site-verification" content="zXfVayP4_lS6J5aZGuEni6a2oyG96w7q1PIOGFy5Rvo" />
     <meta name="google-adsense-account" content="ca-pub-9798575917692871">
+    
+    <!-- 更新内容安全政策 (CSP) 以允许AdSense脚本 -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://pagead2.googlesyndication.com; connect-src 'self'; frame-src 'self' https://googleads.g.doubleclick.net; object-src 'none';">
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9798575917692871" crossorigin="anonymous"></script>
+    
     <meta name="description" content="Free online Markdown to Image converter. Perfect for social media posts, code sharing, technical documentation, and educational content. Create beautiful images with multiple themes for Instagram, Twitter, LinkedIn. Support syntax highlighting, instant preview, and high-quality export. Transform your Markdown to stunning visuals now!" />
     <meta name="keywords" content="markdown to image converter, markdown to image online, convert markdown to picture, markdown image generator, social media image maker, markdown to png, markdown to jpg, markdown editor with image export, markdown image tool free, markdown to image for social media, code snippet to image, documentation to image" />
-    <meta name="author" content="AIer Team" />
+    <meta name="author" content="md2image Team" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="googlebot" content="index, follow" />
-    <meta property="og:title" content="AIer - Free Online Markdown to Image Converter | Multiple Themes" />
+    
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="md2image - Free Online Markdown to Image Converter | Multiple Themes" />
     <meta property="og:description" content="Transform your Markdown into beautiful images instantly. Multiple themes, perfect for social media. Free online converter with live preview and high-quality export." />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="%PUBLIC_URL%/og-image.jpg" />
-    <meta property="og:site_name" content="AIer" />
+    <meta property="og:site_name" content="md2image" />
     <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="AIer - Free Markdown to Image Converter | Multiple Themes" />
+    <meta name="twitter:title" content="md2image - Free Markdown to Image Converter | Multiple Themes" />
     <meta name="twitter:description" content="Transform your Markdown into beautiful images instantly. Multiple themes, perfect for social media. Free online converter with live preview." />
     <meta name="twitter:image" content="%PUBLIC_URL%/og-image.jpg" />
-    <link rel="canonical" href="https://aier.vercel.app" />
+    
+    <link rel="canonical" href="https://md2image.vercel.app" />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>AIer - Free Online Markdown to Image Converter | Multiple Themes & Instant Preview</title>
+    <title>md2image - Free Online Markdown to Image Converter | Multiple Themes & Instant Preview</title>
     
     <!-- Structured Data for Rich Snippets -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "AIer - Markdown to Image Converter",
+      "name": "md2image - Markdown to Image Converter",
       "description": "Free online tool to convert Markdown to beautiful images with multiple themes",
-      "url": "https://aier.vercel.app",
+      "url": "https://md2image.vercel.app",
       "applicationCategory": "Utility",
       "operatingSystem": "Any",
       "offers": {
@@ -68,7 +78,7 @@
       },
       "potentialAction": {
         "@type": "UseAction",
-        "target": "https://aier.vercel.app"
+        "target": "https://md2image.vercel.app/app"
       }
     }
     </script>
@@ -77,6 +87,14 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Redirect script for root path -->
+    <script>
+      // This ensures users who directly access index.html get redirected to the landing page
+      if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+        window.location.href = '/landing.html';
+      }
+    </script>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
@@ -92,10 +110,10 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
     
-    <!-- SEO Content -->
+    <!-- SEO Content (hidden from users, visible to search engines) -->
     <noscript>
       <div style="display:none">
-        <h1>AIer - Markdown to Image Converter</h1>
+        <h1>md2image - Markdown to Image Converter</h1>
         <h2>What is Markdown?</h2>
         <p>Markdown is a popular markup language that makes it easy to format text for the web. Created by John Gruber in 2004, it has become the standard for content creation, documentation, and social media posts.</p>
         
@@ -107,7 +125,7 @@
           <li>Note Taking: Popular in apps like Notion and Obsidian</li>
         </ul>
         
-        <h2>Why Choose AIer</h2>
+        <h2>Why Choose md2image</h2>
         <ul>
           <li>Multiple professional themes</li>
           <li>Real-time preview</li>
@@ -115,7 +133,7 @@
           <li>Perfect for social media sharing</li>
         </ul>
 
-        <h2>Perfect Use Cases for AIer</h2>
+        <h2>Perfect Use Cases for md2image</h2>
         <ul>
           <li>Social Media Content Creators: Create beautiful posts for Instagram, Twitter, and LinkedIn</li>
           <li>Technical Writers: Convert documentation snippets into shareable images</li>

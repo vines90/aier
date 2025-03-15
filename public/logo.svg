@@ -1,0 +1,18 @@
+<svg width="200" height="200" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景矩形 - 使用线性渐变 -->
+  <rect width="200" height="200" rx="32" fill="url(#paint0_linear)" />
+  
+  <!-- "md" 文本 -->
+  <text x="40" y="120" font-family="Arial, sans-serif" font-weight="bold" font-size="80" fill="white">md</text>
+  
+  <!-- 箭头 -->
+  <path d="M150 120 L140 95 L165 105 L120 60 L150 120" fill="white" />
+  
+  <!-- 定义渐变 -->
+  <defs>
+    <linearGradient id="paint0_linear" x1="0" y1="0" x2="200" y2="200" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2b4c7d" />
+      <stop offset="1" stop-color="#567bbd" />
+    </linearGradient>
+  </defs>
+</svg> 

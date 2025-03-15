@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#2b4c7d" />
+  <meta name="msapplication-TileColor" content="#2b4c7d" />
+  <meta name="google-site-verification" content="zXfVayP4_lS6J5aZGuEni6a2oyG96w7q1PIOGFy5Rvo" />
+  <meta name="google-adsense-account" content="ca-pub-9798575917692871">
+  
+  <!-- 更新内容安全政策 (CSP) 以允许AdSense脚本 -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://pagead2.googlesyndication.com; connect-src 'self'; frame-src 'self' https://googleads.g.doubleclick.net; object-src 'none';">
+  
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9798575917692871" crossorigin="anonymous"></script>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Transform Markdown into beautiful images instantly with md2image. Perfect for social media posts, documentation, and educational content. Free online converter with multiple themes, code syntax highlighting, and high-quality export." />
+  <meta name="keywords" content="markdown to image converter, markdown to image online, convert markdown to picture, markdown image generator, social media image maker, markdown to png, markdown to jpg, markdown editor with image export, markdown image tool free, markdown to image for social media, code snippet to image, documentation to image" />
+  <meta name="author" content="md2image Team" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="googlebot" content="index, follow" />
+  
+  <!-- Open Graph / Social Media Meta Tags -->
+  <meta property="og:title" content="md2image - Free Online Markdown to Image Converter | Multiple Themes" />
+  <meta property="og:description" content="Transform your Markdown into beautiful images instantly. Multiple themes, perfect for social media. Free online converter with live preview and high-quality export." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="%PUBLIC_URL%/og-image.jpg" />
+  <meta property="og:site_name" content="md2image" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="md2image - Free Markdown to Image Converter | Multiple Themes" />
+  <meta name="twitter:description" content="Transform your Markdown into beautiful images instantly. Multiple themes, perfect for social media. Free online converter with live preview." />
+  <meta name="twitter:image" content="%PUBLIC_URL%/og-image.jpg" />
+  
+  <link rel="canonical" href="https://md2image.vercel.app" />
+  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+  <title>md2image - Free Online Markdown to Image Converter | Multiple Themes & Instant Preview</title>
+  
+  <!-- Structured Data for Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "md2image - Markdown to Image Converter",
+    "description": "Free online tool to convert Markdown to beautiful images with multiple themes",
+    "url": "https://md2image.vercel.app",
+    "applicationCategory": "Utility",
+    "operatingSystem": "Any",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "featureList": [
+      "Multiple professional themes",
+      "Live preview with instant updates",
+      "High-quality image export",
+      "Social media optimized formats",
+      "Code syntax highlighting",
+      "Markdown editor with toolbar",
+      "Mobile responsive design",
+      "Custom styling options",
+      "Multiple export formats",
+      "Easy sharing capabilities"
+    ],
+    "audience": {
+      "@type": "Audience",
+      "audienceType": [
+        "Content Creators",
+        "Developers",
+        "Technical Writers",
+        "Educators",
+        "Marketing Teams",
+        "Students"
+      ]
+    },
+    "potentialAction": {
+      "@type": "UseAction",
+      "target": "https://md2image.vercel.app/app"
+    }
+  }
+  </script>
+
+  <!-- Additional Structured Data for FAQ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is md2image?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "md2image is a free online tool that converts Markdown content into beautiful images with multiple themes, perfect for social media sharing, documentation, and educational content."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I use md2image?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Using md2image is simple: (1) Write or paste your Markdown content in the editor, (2) Choose your preferred theme, (3) Preview and adjust as needed, (4) Export your content as a high-quality image."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What themes are available?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "md2image offers 8 professionally designed themes: Light, Warm, Elegant, Dark, Nature, Sunset, Ocean, and Mint, each optimized for different types of content and purposes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is md2image free to use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, md2image is completely free to use with no limitations on the number of images you can create or export."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What formats can I export to?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Currently, md2image supports export to high-quality PNG format, which is perfect for sharing on social media and other platforms."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does md2image support code syntax highlighting?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, md2image provides beautiful syntax highlighting for over 180 programming languages and markup formats, making it perfect for sharing code examples."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  
+  <!-- Modern landing page styles -->
+  <style>
+    :root {
+      --primary-color: #2b4c7d;
+      --primary-light: #567bbd;
+      --secondary-color: #f97316;
+      --text-color: #1e293b;
+      --text-light: #64748b;
+      --bg-color: #ffffff;
+      --bg-alt: #f8fafc;
+      --radius: 12px;
+      --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text-color);
+      line-height: 1.6;
+      background-color: var(--bg-color);
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      line-height: 1.3;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    p {
+      margin-bottom: 1.5rem;
+    }
+    
+    a {
+      color: var(--primary-color);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    a:hover {
+      color: var(--primary-light);
+    }
+    
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+    
+    header {
+      padding: 1.5rem 0;
+      background-color: var(--bg-color);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    .header-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary-color);
+    }
+    
+    .logo img {
+      height: 36px;
+      margin-right: 8px;
+    }
+
+    /* Logo Styles */
+    .logo-container {
+      display: flex;
+      align-items: center;
+    }
+    
+    .logo-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+      border-radius: 8px;
+      margin-right: 10px;
+      color: white;
+      font-weight: bold;
+      font-size: 18px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .logo-text {
+      font-weight: 800;
+      font-size: 1.5rem;
+      background: linear-gradient(120deg, var(--primary-color), var(--primary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    
+    .logo-arrow {
+      position: absolute;
+      right: 4px;
+      font-size: 14px;
+      transform: rotate(45deg);
+    }
+    
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 2rem;
+    }
+    
+    .nav-link {
+      font-weight: 500;
+      font-size: 1rem;
+    }
+    
+    .hero {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, #f8faff 0%, #e8efff 100%);
+    }
+    
+    .hero-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4rem;
+    }
+    
+    .hero-content {
+      flex: 1;
+    }
+    
+    .hero-title {
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      background: linear-gradient(120deg, var(--primary-color), var(--primary-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1.5rem;
+    }
+    
+    .hero-subtitle {
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
+      color: var(--text-light);
+      margin-bottom: 2rem;
+    }
+    
+    .hero-image {
+      flex: 1.2;
+      display: flex;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .hero-image img {
+      max-width: 120%;
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      transform: scale(1.1);
+      transition: transform 0.3s ease;
+    }
+    
+    .hero-image img:hover {
+      transform: scale(1.15);
+    }
+    
+    .cta-button {
+      display: inline-block;
+      background-color: var(--secondary-color);
+      color: white;
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.8rem 2rem;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 6px rgba(249, 115, 22, 0.3);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(249, 115, 22, 0.4);
+      color: white;
+    }
+    
+    .secondary-button {
+      display: inline-block;
+      background-color: white;
+      color: var(--primary-color);
+      font-weight: 600;
+      font-size: 1.1rem;
+      padding: 0.8rem 2rem;
+      border-radius: var(--radius);
+      margin-left: 1rem;
+      border: 1px solid var(--primary-color);
+      cursor: pointer;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .secondary-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(43, 76, 125, 0.2);
+    }
+    
+    .features {
+      padding: 5rem 0;
+      background-color: var(--bg-color);
+    }
+    
+    .section-title {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+    }
+    
+    .section-subtitle {
+      text-align: center;
+      font-size: 1.2rem;
+      color: var(--text-light);
+      max-width: 800px;
+      margin: 0 auto 4rem;
+    }
+    
+    .feature-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+    
+    .feature-card {
+      background-color: white;
+      padding: 2rem;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .feature-icon {
+      font-size: 2.5rem;
+      color: var(--primary-color);
+      margin-bottom: 1.5rem;
+    }
+    
+    .feature-title {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .feature-description {
+      color: var(--text-light);
+    }
+    
+    .themes {
+      padding: 5rem 0;
+      background-color: var(--bg-alt);
+    }
+    
+    /* 网格布局优化 */
+    .theme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .theme-card {
+      background: white;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      position: relative;
+    }
+
+    .theme-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .theme-image-container {
+      position: relative;
+      width: 100%;
+      padding-top: 130%; /* 增加更多显示空间 */
+      overflow: hidden;
+      background-color: #f8fafc;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    .theme-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top; /* 确保从图片顶部开始显示 */
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .theme-content {
+      padding: 0.75rem;
+      text-align: center;
+      flex-grow: 0;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(255,255,255,1) 100%);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+
+    .theme-title {
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+      color: var(--primary-color);
+    }
+
+    .theme-description {
+      color: var(--text-light);
+      font-size: 0.8rem;
+      margin-bottom: 0;
+      line-height: 1.3;
+    }
+    
+    .use-cases {
+      padding: 5rem 0;
+      background-color: var(--bg-color);
+    }
+    
+    .use-case-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 3rem;
+    }
+    
+    .use-case {
+      display: flex;
+      align-items: flex-start;
+    }
+    
+    .use-case-icon {
+      font-size: 2rem;
+      color: var(--primary-color);
+      margin-right: 1rem;
+    }
+    
+    .use-case-content h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .use-case-content p {
+      color: var(--text-light);
+    }
+    
+    .steps {
+      padding: 5rem 0;
+      background-color: var(--bg-alt);
+    }
+    
+    .steps-container {
+      display: flex;
+      flex-direction: column;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .step {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 3rem;
+    }
+    
+    .step-number {
+      background: var(--primary-color);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 1.5rem;
+      flex-shrink: 0;
+    }
+    
+    .step-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .step-content p {
+      color: var(--text-light);
+    }
+    
+    .cta {
+      padding: 5rem 0;
+      background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+      color: white;
+      text-align: center;
+    }
+    
+    .cta h2 {
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .cta p {
+      font-size: 1.2rem;
+      max-width: 700px;
+      margin: 0 auto 2rem;
+      opacity: 0.9;
+    }
+    
+    .footer {
+      padding: 3rem 0;
+      background-color: #1a365d;
+      color: white;
+    }
+    
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+    
+    .footer-column h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: #e2e8f0;
+    }
+    
+    .footer-links {
+      list-style: none;
+    }
+    
+    .footer-links li {
+      margin-bottom: 0.8rem;
+    }
+    
+    .footer-links a {
+      color: #cbd5e1;
+      transition: color 0.3s;
+    }
+    
+    .footer-links a:hover {
+      color: white;
+    }
+    
+    .copyright {
+      text-align: center;
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      font-size: 0.9rem;
+    }
+    
+    /* FAQ Section Styles */
+    .faq {
+      padding: 5rem 0;
+      background-color: var(--bg-color);
+    }
+    
+    .faq-item {
+      margin-bottom: 2rem;
+      padding: 1.5rem 2rem;
+      border-radius: var(--radius);
+      background-color: white;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .faq-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    
+    .faq-item h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.75rem;
+      color: var(--primary-color);
+    }
+    
+    .faq-item p {
+      color: var(--text-light);
+      margin-bottom: 0;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .hero-container {
+        flex-direction: column;
+        gap: 2rem;
+      }
+      
+      .hero-image img {
+        max-width: 100%;
+        transform: scale(1);
+      }
+      
+      .secondary-button {
+        margin-left: 0;
+        margin-top: 1rem;
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+      
+      .cta-button {
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+      
+      .nav-menu {
+        display: none;
+      }
+    }
+    
+    /* 主题预览模态框 */
+    .theme-modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .theme-modal.show {
+      opacity: 1;
+    }
+    
+    .theme-modal-content {
+      position: relative;
+      max-width: 90%;
+      max-height: 90%;
+      background: white;
+      border-radius: var(--radius);
+      overflow: auto;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+    
+    .theme-modal.show .theme-modal-content {
+      transform: scale(1);
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+      z-index: 1001;
+      background-color: rgba(0,0,0,0.5);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.3s;
+    }
+    
+    .modal-close:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+    
+    .modal-image {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+  </style>
+
+  <!-- 添加资源预加载 -->
+  <link rel="preload" href="hero.png" as="image" />
+  
+  <!-- Performance optimization -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <a href="#" class="logo">
+        <div class="logo-container">
+          <div class="logo-icon">
+            md<span class="logo-arrow">➚</span>
+          </div>
+          <div class="logo-text">md2image</div>
+        </div>
+      </a>
+      <ul class="nav-menu">
+        <li><a href="#features" class="nav-link">Features</a></li>
+        <li><a href="#themes" class="nav-link">Themes</a></li>
+        <li><a href="#use-cases" class="nav-link">Use Cases</a></li>
+        <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+        <li><a href="#faq" class="nav-link">FAQ</a></li>
+        <li><a href="#about" class="nav-link">About Us</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-container">
+      <div class="hero-content">
+        <h1 class="hero-title">Transform Markdown Into Beautiful Images</h1>
+        <p class="hero-subtitle">Convert your Markdown content into stunning visuals perfect for social media, documentation, and educational content — all for free.</p>
+        <a href="/app" class="cta-button">Start Creating Now</a>
+        <a href="#how-it-works" class="secondary-button">Learn More</a>
+      </div>
+      <div class="hero-image">
+        <img src="hero.png" alt="md2image application interface showing Markdown editor and preview with beautiful theme applied" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="container">
+      <h2 class="section-title">Powerful Features</h2>
+      <p class="section-subtitle">md2image comes packed with everything you need to create beautiful, shareable images from your Markdown content.</p>
+      
+      <div class="feature-cards">
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3 class="feature-title">Multiple Themes</h3>
+          <p class="feature-description">Choose from 8 professionally designed themes to match your brand or style preferences.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3 class="feature-title">Real-time Preview</h3>
+          <p class="feature-description">See your changes instantly as you type with our live preview feature.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">📱</div>
+          <h3 class="feature-title">Responsive Design</h3>
+          <p class="feature-description">Create and export images from any device with our mobile-friendly interface.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">💻</div>
+          <h3 class="feature-title">Code Highlighting</h3>
+          <p class="feature-description">Beautiful syntax highlighting for over 180 programming languages and markup formats.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🖼️</div>
+          <h3 class="feature-title">High-Quality Export</h3>
+          <p class="feature-description">Generate crisp, high-resolution PNG images perfect for any platform.</p>
+        </div>
+        
+        <div class="feature-card">
+          <div class="feature-icon">🔄</div>
+          <h3 class="feature-title">Easy Sharing</h3>
+          <p class="feature-description">One-click export makes it simple to share your content across platforms.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="themes" id="themes">
+    <div class="container">
+      <h2 class="section-title">Beautiful Themes</h2>
+      <p class="section-subtitle">Choose from a variety of professionally designed themes to make your content stand out.</p>
+      
+      <div class="theme-grid">
+        <div class="theme-card" data-theme="light">
+          <div class="theme-image-container">
+            <img src="theme-light.png" alt="Light theme preview showing clean professional design with optimal readability on white background" class="theme-image" loading="lazy" />
+          </div>
+          <div class="theme-content">
+            <h3 class="theme-title">Light</h3>
+            <p class="theme-description">Clean and professional with excellent readability.</p>
+          </div>
+        </div>
+        
+        <div class="theme-card" data-theme="warm">
+          <div class="theme-image-container">
+            <img src="theme-warm.png" alt="Warm theme preview displaying cozy amber colors with soft backgrounds for inviting content presentation" class="theme-image" loading="lazy" />
+          </div>
+          <div class="theme-content">
+            <h3 class="theme-title">Warm</h3>
+            <p class="theme-description">Soft, inviting colors perfect for engaging content.</p>
+          </div>
+        </div>
+        
+        <div class="theme-card" data-theme="elegant">
+          <div class="theme-image-container">
+            <img src="theme-elegant.png" alt="Elegant theme preview showcasing sophisticated styling with modern typography and subtle color accents" class="theme-image" loading="lazy" />
+          </div>
+          <div class="theme-content">
+            <h3 class="theme-title">Elegant</h3>
+            <p class="theme-description">Modern and stylish for a premium look.</p>
+          </div>
+        </div>
+        
+        <div class="theme-card" data-theme="dark">
+          <div class="theme-image-container">
+            <img src="theme-dark.png" alt="Dark theme preview with eye-friendly dark background and high contrast text for comfortable reading in low light" class="theme-image" loading="lazy" />
+          </div>
+          <div class="theme-content">
+            <h3 class="theme-title">Dark</h3>
+            <p class="theme-description">Easy on the eyes with striking contrast.</p>
+          </div>
+        </div>
+        
+        <div class="theme-card" data-theme="nature">
+          <div class="theme-image-container">
+            <img src="theme-nature.png" alt="Nature theme preview featuring fresh green color palette with organic styling elements for natural feel" class="theme-image" loading="lazy" />
+          </div>
+          <div class="theme-content">
+            <h3 class="theme-title">Nature</h3>
+            <p class="theme-description">Fresh and organic with natural color tones.</p>
+          </div>
+        </div>
+        
+        <div class="theme-card" data-theme="sunset">
+          <div class="theme-image-container">
+            <img src="theme-sunset.png" alt="Sunset theme preview with warm gradient colors resembling dusk sky with vibrant oranges and pinks" class="theme-image" loading="lazy" />
+          </div>
+          <div class="theme-content">
+            <h3 class="theme-title">Sunset</h3>
+            <p class="theme-description">Warm and vibrant like a beautiful sunset.</p>
+          </div>
+        </div>
+        
+        <div class="theme-card" data-theme="ocean">
+          <div class="theme-image-container">
+            <img src="theme-ocean.png" alt="Ocean theme preview displaying serene blue color palette with calm water-inspired design elements" class="theme-image" loading="lazy" />
+          </div>
+          <div class="theme-content">
+            <h3 class="theme-title">Ocean</h3>
+            <p class="theme-description">Calm and serene with blue color palette.</p>
+          </div>
+        </div>
+        
+        <div class="theme-card" data-theme="mint">
+          <div class="theme-image-container">
+            <img src="theme-mint.png" alt="Mint theme preview showing refreshing mint green accents with cool pastel backgrounds for a crisp look" class="theme-image" loading="lazy" />
+          </div>
+          <div class="theme-content">
+            <h3 class="theme-title">Mint</h3>
+            <p class="theme-description">Cool and refreshing with mint green accents.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="use-cases" id="use-cases">
+    <div class="container">
+      <h2 class="section-title">Perfect for Many Use Cases</h2>
+      <p class="section-subtitle">md2image helps professionals across industries create beautiful visual content.</p>
+      
+      <div class="use-case-grid">
+        <div class="use-case">
+          <div class="use-case-icon">📱</div>
+          <div class="use-case-content">
+            <h3>Social Media Content</h3>
+            <p>Create eye-catching posts for Twitter, LinkedIn, Instagram, and more.</p>
+          </div>
+        </div>
+        
+        <div class="use-case">
+          <div class="use-case-icon">📚</div>
+          <div class="use-case-content">
+            <h3>Technical Documentation</h3>
+            <p>Generate beautiful code samples and technical explanations.</p>
+          </div>
+        </div>
+        
+        <div class="use-case">
+          <div class="use-case-icon">🎓</div>
+          <div class="use-case-content">
+            <h3>Educational Content</h3>
+            <p>Create clear, engaging materials for students and learners.</p>
+          </div>
+        </div>
+        
+        <div class="use-case">
+          <div class="use-case-icon">💻</div>
+          <div class="use-case-content">
+            <h3>Developer Snippets</h3>
+            <p>Share code examples with syntax highlighting and proper formatting.</p>
+          </div>
+        </div>
+        
+        <div class="use-case">
+          <div class="use-case-icon">✍️</div>
+          <div class="use-case-content">
+            <h3>Blog Content</h3>
+            <p>Generate featured images for technical articles and blog posts.</p>
+          </div>
+        </div>
+        
+        <div class="use-case">
+          <div class="use-case-icon">🚀</div>
+          <div class="use-case-content">
+            <h3>Product Updates</h3>
+            <p>Create visually appealing release notes and product announcements.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps" id="how-it-works">
+    <div class="container">
+      <h2 class="section-title">How It Works</h2>
+      <p class="section-subtitle">Creating beautiful images from your Markdown content is simple with md2image.</p>
+      
+      <div class="steps-container">
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Write or Paste Markdown</h3>
+            <p>Enter your content in our easy-to-use Markdown editor. Use simple syntax for headings, lists, code blocks, and more.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Choose Your Theme</h3>
+            <p>Select from 8 beautiful themes to match your content style and purpose.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Preview and Customize</h3>
+            <p>See exactly how your content will look with our real-time preview. Make adjustments as needed.</p>
+          </div>
+        </div>
+        
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Export Your Image</h3>
+            <p>Click the Export button to download your high-quality PNG image, ready to share on any platform.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="container">
+      <h2 class="section-title">Frequently Asked Questions</h2>
+      <p class="section-subtitle">Everything you need to know about md2image and how it works.</p>
+      
+      <div style="max-width: 800px; margin: 0 auto;">
+        <div class="faq-item">
+          <h3>What is md2image?</h3>
+          <p>md2image is a free online tool that converts Markdown content into beautiful images with multiple themes, perfect for social media sharing, documentation, and educational content.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3>How do I use md2image?</h3>
+          <p>Using md2image is simple: (1) Write or paste your Markdown content in the editor, (2) Choose your preferred theme, (3) Preview and adjust as needed, (4) Export your content as a high-quality image.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3>What themes are available?</h3>
+          <p>md2image offers 8 professionally designed themes: Light, Warm, Elegant, Dark, Nature, Sunset, Ocean, and Mint, each optimized for different types of content and purposes.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3>Is md2image free to use?</h3>
+          <p>Yes, md2image is completely free to use with no limitations on the number of images you can create or export.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3>What formats can I export to?</h3>
+          <p>Currently, md2image supports export to high-quality PNG format, which is perfect for sharing on social media and other platforms.</p>
+        </div>
+        
+        <div class="faq-item">
+          <h3>Does md2image support code syntax highlighting?</h3>
+          <p>Yes, md2image provides beautiful syntax highlighting for over 180 programming languages and markup formats, making it perfect for sharing code examples.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- New About Us Section -->
+  <section class="about" id="about">
+    <div class="container">
+      <h2 class="section-title">About Us</h2>
+      <div style="max-width: 800px; margin: 0 auto; background: white; padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow);">
+        <h3 style="margin-bottom: 1.5rem;">A Letter to  Users</h3>
+        
+        <p style="font-size: 1.1rem; line-height: 1.8;">
+          Hello there! I'm AA, an independent developer passionate about creating tools that solve real problems.
+        </p>
+        
+        <p style="font-size: 1.1rem; line-height: 1.8;">
+          I developed md2image from a personal need - as someone who regularly shares knowledge and content online, 
+          I needed a simple way to transform my Markdown documents into beautiful, shareable images. 
+          What started as a solution to my own challenge has grown into something I'm excited to share with you.
+        </p>
+        
+        <p style="font-size: 1.1rem; line-height: 1.8;">
+          My hope is that md2image makes your content creation process smoother and more enjoyable. 
+          Whether you're a developer sharing code snippets, an educator creating learning materials, 
+          or a content creator looking to make your posts stand out - this tool is built for you.
+        </p>
+        
+        <p style="font-size: 1.1rem; line-height: 1.8;">
+          I'm always looking to improve and evolve this tool based on your needs. If you have suggestions, 
+          ideas, or feedback, I'd love to hear from you! Please reach out at 
+          <a href="mailto:lyxu90@gmail.com" style="font-weight: 600;" rel="noopener">lyxu90@gmail.com</a>.
+        </p>
+        
+        <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 0.5rem;">
+          You might also be interested in exploring my other projects:
+        </p>
+        
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+          <li style="margin-bottom: 0.5rem;">
+            <a href="https://www.sohobot.cc" target="_blank" rel="noopener noreferrer" style="font-weight: 600;">SohoBot</a> - 
+            Enhancing productivity through intelligent automation
+          </li>
+          <li>
+            <a href="https://www.ai2report.com" target="_blank" rel="noopener noreferrer" style="font-weight: 600;">AI2Report</a> - 
+            Transforming data into comprehensive reports with AI
+          </li>
+        </ul>
+        
+        <p style="font-size: 1.1rem; line-height: 1.8;">
+          Thank you for using md2image, and I'm looking forward to hearing how it helps you create amazing content!
+        </p>
+        
+        <p style="font-size: 1.1rem; font-weight: 600; text-align: right; margin-top: 2rem; margin-bottom: 0;">
+          Warmly,<br>
+          AA
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>Start Creating Beautiful Images Today</h2>
+      <p>Join thousands of content creators, developers, and educators who use md2image to transform their Markdown content into stunning visuals.</p>
+      <a href="/app" class="cta-button">Get Started — It's Free!</a>
+    </div>
+  </section>
+
+  <!-- AdSense 广告单元 -->
+  <section style="padding: 2rem 0; text-align: center; background-color: #f8fafc;">
+    <div class="container">
+      <!-- 横幅广告 -->
+      <ins class="adsbygoogle"
+           style="display:block; margin:0 auto; max-width:970px;"
+           data-ad-client="ca-pub-9798575917692871"
+           data-ad-slot="YOUR_AD_SLOT_ID"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="copyright">
+      <p>© <script>document.write(new Date().getFullYear())</script> md2image. All rights reserved. Made with ❤️</p>
+    </div>
+  </footer>
+
+  <!-- 主题预览模态框 -->
+  <div class="theme-modal" id="themeModal">
+    <span class="modal-close">&times;</span>
+    <div class="theme-modal-content">
+      <img src="" alt="Detailed theme preview" class="modal-image" id="modalImage">
+    </div>
+  </div>
+
+  <!-- Minimal JavaScript to enhance the landing page -->
+  <script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+    
+    // 主题预览模态框功能
+    const modal = document.getElementById('themeModal');
+    const modalImg = document.getElementById('modalImage');
+    const modalClose = document.querySelector('.modal-close');
+    
+    // 点击主题卡片打开模态框
+    document.querySelectorAll('.theme-card').forEach(card => {
+      card.addEventListener('click', function() {
+        const imgSrc = this.querySelector('.theme-image').src;
+        const themeName = this.querySelector('.theme-title').textContent;
+        modal.style.display = 'flex';
+        setTimeout(() => {
+          modal.classList.add('show');
+        }, 10);
+        modalImg.src = imgSrc;
+        modalImg.alt = themeName + ' theme preview';
+      });
+    });
+    
+    // 点击关闭按钮关闭模态框
+    modalClose.addEventListener('click', function() {
+      modal.classList.remove('show');
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 300);
+    });
+    
+    // 点击模态框外部关闭模态框
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        modal.classList.remove('show');
+        setTimeout(() => {
+          modal.style.display = 'none';
+        }, 300);
+      }
+    });
+  </script>
+</body>
+</html> 

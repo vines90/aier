@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import styled from 'styled-components';
 import { Button, message, Spin, Radio } from 'antd';
@@ -16,6 +16,44 @@ const AppContainer = styled.div`
   @media (max-width: 768px) {
     padding: 10px;
   }
+`;
+
+const Logo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+`;
+
+const LogoIcon = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, #2b4c7d, #567bbd);
+  border-radius: 8px;
+  margin-right: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+  position: relative;
+  overflow: hidden;
+`;
+
+const LogoText = styled.div`
+  font-weight: 800;
+  font-size: 2em;
+  background: linear-gradient(120deg, #2b4c7d, #567bbd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
+
+const LogoArrow = styled.span`
+  position: absolute;
+  right: 4px;
+  font-size: 14px;
+  transform: rotate(45deg);
 `;
 
 const Title = styled.h1`
@@ -217,10 +255,12 @@ const PreviewContainer = styled.div`
   border-radius: 16px;
   box-shadow: ${props => props.theme === 'dark' 
     ? '0 8px 32px rgba(0, 0, 0, 0.2)' 
-    : '0 8px 32px rgba(0, 0, 0, 0.08)'};
+    : props.theme === 'gradient'
+      ? '0 10px 30px rgba(120, 116, 255, 0.15), 0 4px 10px rgba(0, 0, 0, 0.05)'
+      : '0 8px 32px rgba(0, 0, 0, 0.08)'};
   max-width: 720px;
   margin: 0 auto;
-  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
   position: relative;
   overflow: hidden;
 
@@ -235,14 +275,57 @@ const PreviewContainer = styled.div`
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #2b4c7d, #567bbd);
+    background: ${props => props.theme === 'gradient' 
+      ? 'linear-gradient(90deg, #6366f1, #a855f7, #ec4899)' 
+      : 'linear-gradient(90deg, #2b4c7d, #567bbd)'};
   }
+
+  ${props => props.theme === 'gradient' && `
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -50px;
+      right: -50px;
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: linear-gradient(225deg, rgba(236, 72, 153, 0.07), rgba(99, 102, 241, 0.07));
+      z-index: -1;
+    }
+  `}
 
   .wmde-markdown {
     font-size: 15px;
     line-height: 1.8;
     color: ${props => props.textColor};
-    background: ${props => props.background};
+    background: ${props => props.theme === 'gradient' ? 'transparent' : props.background};
+  }
+
+  /* 确保所有emoji正确显示 */
+  .wmde-markdown h1,
+  .wmde-markdown h2,
+  .wmde-markdown h3,
+  .wmde-markdown p,
+  .wmde-markdown li,
+  .wmde-markdown blockquote {
+    font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+  }
+
+  /* 允许emoji显示彩色 */
+  .wmde-markdown p,
+  .wmde-markdown li,
+  .wmde-markdown blockquote {
+    color: ${props => props.textColor};
+    -webkit-text-fill-color: ${props => props.textColor};
+    
+    /* 确保emoji彩色显示 */
+    .emoji, span.emoji, 
+    img.emoji {
+      color: initial;
+      -webkit-text-fill-color: initial;
+      background: none;
+      font-style: normal;
+    }
   }
 
   .wmde-markdown h1,
@@ -253,6 +336,45 @@ const PreviewContainer = styled.div`
     margin: 1.2em 0 0.8em;
     letter-spacing: -0.01em;
     color: ${props => props.titleColor};
+    ${props => props.theme === 'gradient' && `
+      background: linear-gradient(90deg, #2f365f, #4f46e5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      
+      /* 确保在渐变主题下emoji仍然可见 */
+      & .emoji, & span.emoji {
+        -webkit-text-fill-color: initial;
+        background: initial;
+        color: initial;
+      }
+    `}
+  }
+
+  /* 修正emoji显示 - 移除任何可能干扰emoji的样式 */
+  .emoji, 
+  span.emoji,
+  img.emoji {
+    color: initial !important;
+    -webkit-text-fill-color: initial !important;
+    background: none !important;
+    font-style: normal !important;
+    font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif !important;
+    display: inline-block;
+  }
+  
+  /* 确保Markdown渲染器不会强制应用颜色到emoji */
+  .wmde-markdown {
+    em .emoji, 
+    strong .emoji,
+    h1 .emoji,
+    h2 .emoji,
+    h3 .emoji,
+    p .emoji,
+    li .emoji,
+    blockquote .emoji {
+      color: initial !important;
+      -webkit-text-fill-color: initial !important;
+    }
   }
 
   .wmde-markdown h1 {
@@ -298,6 +420,9 @@ const PreviewContainer = styled.div`
     height: 5px;
     background: ${props => props.accentColor};
     border-radius: 50%;
+    ${props => props.theme === 'gradient' && `
+      background: linear-gradient(90deg, #6366f1, #a855f7);
+    `}
   }
 
   .wmde-markdown blockquote {
@@ -308,6 +433,13 @@ const PreviewContainer = styled.div`
     border-radius: 8px;
     position: relative;
     color: ${props => props.blockquoteColor};
+    ${props => props.theme === 'gradient' && `
+      backdrop-filter: blur(10px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+      border-left: 3px solid transparent;
+      border-image: linear-gradient(to bottom, #6366f1, #a855f7);
+      border-image-slice: 1;
+    `}
   }
 
   .wmde-markdown blockquote::before {
@@ -328,6 +460,21 @@ const PreviewContainer = styled.div`
     font-family: 'JetBrains Mono', 'Fira Code', monospace;
     font-size: 0.9em;
     color: ${props => props.codeColor};
+    ${props => props.theme === 'gradient' && `
+      position: relative;
+      z-index: 1;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, rgba(99, 102, 241, 0.1), rgba(168, 85, 247, 0.1));
+        border-radius: 4px;
+        z-index: -1;
+      }
+    `}
   }
 
   .wmde-markdown pre {
@@ -540,6 +687,19 @@ const themes = {
     preCodeColor: '#e2e8f0',
     accentColor: '#60a5fa'
   },
+  gradient: {
+    background: 'linear-gradient(135deg, #f5f7fa 0%, #e4eaf5 100%)',
+    textColor: '#334155',
+    titleColor: '#2f365f',
+    borderColor: '#cbd5e1',
+    blockquoteBackground: 'rgba(255, 255, 255, 0.95)',
+    blockquoteColor: '#4a5568',
+    codeBackground: 'rgba(255, 255, 255, 0.9)',
+    codeColor: '#7c3aed',
+    preBackground: 'rgba(255, 255, 255, 0.95)',
+    preCodeColor: '#334155',
+    accentColor: '#7c3aed'
+  },
   nature: {
     background: '#f0f7f4',
     textColor: '#2d3b36',
@@ -594,10 +754,33 @@ const themes = {
   }
 };
 
-function App() {
-  const [value, setValue] = useState(`# AIer - Markdown to Image Converter 📝
+// AdSense广告组件
+const AdBanner = styled.div`
+  margin: 40px 0;
+  text-align: center;
+  min-height: 90px;
+  
+  @media (max-width: 768px) {
+    margin: 30px 0;
+  }
+`;
 
-Welcome to AIer, your professional tool for converting Markdown to beautiful images!
+function App() {
+  const [isAppRoute, setIsAppRoute] = useState(false);
+  
+  useEffect(() => {
+    if (window.location.pathname === '/app') {
+      setIsAppRoute(true);
+    } else if (window.location.pathname === '/') {
+      window.location.href = '/landing.html';
+    } else {
+      setIsAppRoute(true);
+    }
+  }, []);
+
+  const [value, setValue] = useState(`# md2image - Markdown to Image Converter 📝
+
+Welcome to md2image, your professional tool for converting Markdown to beautiful images!
 
 ## 📘 What is Markdown?
 
@@ -616,7 +799,7 @@ Markdown is a popular markup language that makes it easy to format text for the 
 3. **Future Proof**: Your content stays readable even without formatting
 4. **Versatile Output**: Convert to HTML, PDF, images, and more
 
-## 🎯 How to Use AIer
+## 🎯 How to Use md2image
 
 1. **Write or Paste Content**
    - Use our Markdown editor
@@ -669,9 +852,87 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
       const contentHeight = previewElement.scrollHeight;
       const contentWidth = previewElement.scrollWidth;
       
-      const dataUrl = await htmlToImage.toPng(previewRef.current, {
+      // 临时添加导出专用样式
+      const blockquotes = previewElement.querySelectorAll('.wmde-markdown blockquote');
+      const originalBlockquoteStyles = [];
+      
+      // 保存文档中的所有元素原始样式
+      const allElements = previewElement.querySelectorAll('*');
+      const originalComputedStyles = new Map();
+      
+      // 创建一个临时样式表，专门处理emoji
+      const styleSheet = document.createElement('style');
+      styleSheet.type = 'text/css';
+      styleSheet.textContent = `
+        /* 全局emoji样式重置 */
+        .emoji, 
+        span.emoji,
+        img.emoji,
+        [data-emoji],
+        .wmde-markdown h1 .emoji,
+        .wmde-markdown h2 .emoji,
+        .wmde-markdown h3 .emoji,
+        .wmde-markdown p .emoji,
+        .wmde-markdown li .emoji,
+        .wmde-markdown blockquote .emoji,
+        .wmde-markdown strong .emoji,
+        .wmde-markdown em .emoji {
+          font-family: 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif !important;
+          color: initial !important;
+          -webkit-text-fill-color: initial !important;
+          background: none !important;
+          text-shadow: none !important;
+          filter: none !important;
+          font-style: normal !important;
+          opacity: 1 !important;
+        }
+        
+        /* 强制使用原生emoji字体渲染 */
+        @font-face {
+          font-family: 'EmojiFont';
+          src: local('Apple Color Emoji'), local('Segoe UI Emoji'), local('Segoe UI Symbol');
+          unicode-range: U+1F300-1F6FF, U+1F900-1F9FF, U+2600-26FF, U+2700-27BF;
+        }
+        
+        /* 应用emoji字体到所有可能包含emoji的元素 */
+        body .wmde-markdown * {
+          font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'EmojiFont', sans-serif;
+        }
+      `;
+      document.head.appendChild(styleSheet);
+      
+      // 处理所有emoji元素 - 更精确的模式匹配
+      const emojiPattern = /[\u{1F300}-\u{1F6FF}\u{1F900}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
+      const markdownElements = previewElement.querySelectorAll('.wmde-markdown *');
+      
+      // 更系统地处理emoji
+      markdownElements.forEach(el => {
+        if (el.textContent && emojiPattern.test(el.textContent)) {
+          // 保存原始状态
+          originalComputedStyles.set(el, {
+            html: el.innerHTML,
+            color: el.style.color,
+            webkitTextFillColor: el.style.webkitTextFillColor,
+            fontFamily: el.style.fontFamily
+          });
+          
+          // 对于标题，需要特殊处理
+          if (theme === 'gradient' && (el.tagName === 'H1' || el.tagName === 'H2' || el.tagName === 'H3')) {
+            // 使用更可靠的方法包装emoji
+            el.innerHTML = el.innerHTML.replace(emojiPattern, match => 
+              `<span class="emoji" data-emoji="true" style="color:initial !important;-webkit-text-fill-color:initial !important;background:none !important;">${match}</span>`
+            );
+          }
+          
+          // 确保元素使用正确的字体
+          el.style.fontFamily = "'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif";
+        }
+      });
+      
+      // 为解决emoji和图标问题，确保字体和颜色渲染正确
+      const htmlToImageOptions = {
         quality: 1.0,
-        backgroundColor: themes[theme].background,
+        backgroundColor: theme === 'gradient' ? '#f5f7fa' : themes[theme].background,
         width: contentWidth * 2,
         height: contentHeight * 2,
         style: {
@@ -680,7 +941,90 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
           width: `${contentWidth}px`,
           height: `${contentHeight}px`
         },
-        pixelRatio: 2
+        pixelRatio: 2,
+        fontEmbedCSS: true, // 尝试嵌入字体，以保持一致性
+        skipFonts: false, // 不跳过字体处理
+        fontFamily: "'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif"
+      };
+      
+      // 处理引用块
+      blockquotes.forEach(blockquote => {
+        // 保存更多原始样式属性
+        originalBlockquoteStyles.push({
+          background: blockquote.style.background,
+          borderLeft: blockquote.style.borderLeft,
+          borderImage: blockquote.style.borderImage,
+          borderImageSlice: blockquote.style.borderImageSlice,
+          backdropFilter: blockquote.style.backdropFilter,
+          boxShadow: blockquote.style.boxShadow
+        });
+        
+        // 根据当前主题设置实色背景和边框
+        if (theme === 'gradient') {
+          blockquote.style.background = '#f1f5f9';
+          blockquote.style.borderLeft = '3px solid #6366f1';
+          blockquote.style.borderImage = 'none';
+          blockquote.style.backdropFilter = 'none';
+          blockquote.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.05)';
+        } else if (theme === 'dark') {
+          blockquote.style.background = '#2d3748';
+          blockquote.style.borderLeft = '3px solid #60a5fa';
+        } else if (theme === 'warm') {
+          blockquote.style.background = '#fff5eb';
+          blockquote.style.borderLeft = '3px solid #dd6b20';
+        } else if (theme === 'elegant') {
+          blockquote.style.background = '#f1f5f9';
+          blockquote.style.borderLeft = '3px solid #4f46e5';
+        } else if (theme === 'nature') {
+          blockquote.style.background = '#e6f2ec';
+          blockquote.style.borderLeft = '3px solid #2d6a4f';
+        } else if (theme === 'sunset') {
+          blockquote.style.background = '#fef2ed';
+          blockquote.style.borderLeft = '3px solid #e85d75';
+        } else if (theme === 'ocean') {
+          blockquote.style.background = '#edf3fc';
+          blockquote.style.borderLeft = '3px solid #1e88e5';
+        } else if (theme === 'mint') {
+          blockquote.style.background = '#e8f7f5';
+          blockquote.style.borderLeft = '3px solid #14b8a6';
+        } else { // light 主题
+          blockquote.style.background = '#f8f9fa';
+          blockquote.style.borderLeft = '3px solid #3182ce';
+        }
+      });
+      
+      const dataUrl = await htmlToImage.toPng(previewRef.current, htmlToImageOptions);
+      
+      // 删除临时样式表
+      if (styleSheet.parentNode) {
+        styleSheet.parentNode.removeChild(styleSheet);
+      }
+      
+      // 恢复原样式
+      blockquotes.forEach((blockquote, index) => {
+        blockquote.style.background = originalBlockquoteStyles[index].background;
+        blockquote.style.borderLeft = originalBlockquoteStyles[index].borderLeft;
+        blockquote.style.borderImage = originalBlockquoteStyles[index].borderImage;
+        blockquote.style.borderImageSlice = originalBlockquoteStyles[index].borderImageSlice;
+        blockquote.style.backdropFilter = originalBlockquoteStyles[index].backdropFilter;
+        blockquote.style.boxShadow = originalBlockquoteStyles[index].boxShadow;
+      });
+      
+      // 恢复所有元素的原始样式和内容
+      markdownElements.forEach(el => {
+        if (originalComputedStyles.has(el)) {
+          const origStyle = originalComputedStyles.get(el);
+          
+          // 恢复HTML
+          if (origStyle.html) {
+            el.innerHTML = origStyle.html;
+          }
+          
+          // 恢复样式属性
+          if (origStyle.color) el.style.color = origStyle.color;
+          if (origStyle.webkitTextFillColor) el.style.webkitTextFillColor = origStyle.webkitTextFillColor;
+          if (origStyle.fontFamily) el.style.fontFamily = origStyle.fontFamily;
+        }
       });
       
       const link = document.createElement('a');
@@ -698,96 +1042,128 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
   };
 
   return (
-    <AppContainer>
-      <Analytics />
-      <Title>AIer - Elegant Markdown to Image Converter</Title>
-      
-      <ControlGroup>
-        <Radio.Group
-          value={theme}
-          onChange={e => setTheme(e.target.value)}
-          buttonStyle="solid"
-          size="large"
-        >
-          <Radio.Button value="light">Light</Radio.Button>
-          <Radio.Button value="warm">Warm</Radio.Button>
-          <Radio.Button value="elegant">Elegant</Radio.Button>
-          <Radio.Button value="dark">Dark</Radio.Button>
-          <Radio.Button value="nature">Nature</Radio.Button>
-          <Radio.Button value="sunset">Sunset</Radio.Button>
-          <Radio.Button value="ocean">Ocean</Radio.Button>
-          <Radio.Button value="mint">Mint</Radio.Button>
-        </Radio.Group>
-
-        <StyledButton 
-          type="primary" 
-          icon={<CameraOutlined />}
-          onClick={handleExport}
-          loading={loading}
-          size="large"
-        >
-          Export Image
-        </StyledButton>
-      </ControlGroup>
-
-      <ContentLayout>
-        <EditorSection>
-          <EditorContainer>
-            <MDEditor
-              value={value}
-              onChange={setValue}
-              preview="edit"
-              hideToolbar={false}
-              enableScroll={true}
-              textareaProps={{
-                placeholder: 'Enter your Markdown content here...',
-                style: {
-                  fontSize: '15px',
-                  lineHeight: '1.8',
-                  color: '#2c3e50',
-                  background: '#ffffff'
-                }
-              }}
-              visibleDragbar={false}
-              toolbarCommands={[
-                ['bold', 'italic', 'strikethrough'],
-                ['quote', 'unordered-list', 'ordered-list'],
-                ['link', 'image']
-              ]}
-              previewOptions={{
-                style: {
-                  color: '#2c3e50',
-                  background: '#ffffff'
-                }
-              }}
-              style={{
-                color: '#2c3e50',
-                background: '#ffffff'
-              }}
-            />
-          </EditorContainer>
-        </EditorSection>
-
-        <PreviewSection>
-          <Spin spinning={loading}>
-            <PreviewContainer 
-              ref={previewRef} 
-              {...themes[theme]}
-              theme={theme}
+    <>
+      {isAppRoute ? (
+        <AppContainer>
+          <Analytics />
+          
+          <Logo>
+            <LogoIcon>
+              md<LogoArrow>➚</LogoArrow>
+            </LogoIcon>
+            <LogoText>md2image</LogoText>
+          </Logo>
+          
+          <ControlGroup>
+            <Radio.Group
+              value={theme}
+              onChange={e => setTheme(e.target.value)}
+              buttonStyle="solid"
+              size="large"
             >
-              <MDEditor.Markdown 
-                source={value} 
-                rehypePlugins={[[rehypePrism, { showLineNumbers: true }]]}
-              />
-            </PreviewContainer>
-          </Spin>
-        </PreviewSection>
-      </ContentLayout>
+              <Radio.Button value="light">Light</Radio.Button>
+              <Radio.Button value="warm">Warm</Radio.Button>
+              <Radio.Button value="elegant">Elegant</Radio.Button>
+              <Radio.Button value="dark">Dark</Radio.Button>
+              <Radio.Button value="gradient">Gradient</Radio.Button>
+              <Radio.Button value="nature">Nature</Radio.Button>
+              <Radio.Button value="sunset">Sunset</Radio.Button>
+              <Radio.Button value="ocean">Ocean</Radio.Button>
+              <Radio.Button value="mint">Mint</Radio.Button>
+            </Radio.Group>
 
-      <Copyright>
-        © {new Date().getFullYear()} AIer. All rights reserved. Made with ❤️
-      </Copyright>
-    </AppContainer>
+            <StyledButton 
+              type="primary" 
+              icon={<CameraOutlined />}
+              onClick={handleExport}
+              loading={loading}
+              size="large"
+            >
+              Export Image
+            </StyledButton>
+          </ControlGroup>
+
+          <ContentLayout>
+            <EditorSection>
+              <EditorContainer>
+                <MDEditor
+                  value={value}
+                  onChange={setValue}
+                  preview="edit"
+                  hideToolbar={false}
+                  enableScroll={true}
+                  textareaProps={{
+                    placeholder: 'Enter your Markdown content here...',
+                    style: {
+                      fontSize: '15px',
+                      lineHeight: '1.8',
+                      color: '#2c3e50',
+                      background: '#ffffff'
+                    }
+                  }}
+                  visibleDragbar={false}
+                  toolbarCommands={[
+                    ['bold', 'italic', 'strikethrough'],
+                    ['quote', 'unordered-list', 'ordered-list'],
+                    ['link', 'image']
+                  ]}
+                  previewOptions={{
+                    style: {
+                      color: '#2c3e50',
+                      background: '#ffffff'
+                    }
+                  }}
+                  style={{
+                    color: '#2c3e50',
+                    background: '#ffffff'
+                  }}
+                />
+              </EditorContainer>
+            </EditorSection>
+
+            <PreviewSection>
+              <Spin spinning={loading}>
+                <PreviewContainer 
+                  ref={previewRef} 
+                  {...themes[theme]}
+                  theme={theme}
+                >
+                  <MDEditor.Markdown 
+                    source={value} 
+                    rehypePlugins={[[rehypePrism, { showLineNumbers: true }]]}
+                  />
+                </PreviewContainer>
+              </Spin>
+            </PreviewSection>
+          </ContentLayout>
+
+          {/* AdSense广告单元 */}
+          <AdBanner>
+            <ins className="adsbygoogle"
+                 style={{ display: 'block' }}
+                 data-ad-client="ca-pub-9798575917692871"
+                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true" />
+          </AdBanner>
+
+          <Copyright>
+            © {new Date().getFullYear()} md2image. All rights reserved. Made with ❤️
+          </Copyright>
+          
+          {/* 初始化广告 */}
+          <script dangerouslySetInnerHTML={{
+            __html: `
+              (adsbygoogle = window.adsbygoogle || []).push({});
+            `
+          }} />
+        </AppContainer>
+      ) : (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+          <Spin size="large" tip="Redirecting to landing page..." />
+        </div>
+      )}
+    </>
   );
 }
 
