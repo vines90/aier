@@ -1137,23 +1137,43 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
             </PreviewSection>
           </ContentLayout>
 
-          {/* AdSense广告单元 */}
+          {/* AdSense广告单元 - 第一个广告位 */}
           <AdBanner>
             <ins className="adsbygoogle"
                  style={{ display: 'block' }}
+                 data-ad-format="autorelaxed"
                  data-ad-client="ca-pub-9798575917692871"
-                 data-ad-slot="YOUR_AD_SLOT_ID"
+                 data-ad-slot="3180808479" />
+          </AdBanner>
+
+          {/* AdSense广告单元 - 第二个广告位 */}
+          <AdBanner style={{ marginTop: '60px' }}>
+            <ins className="adsbygoogle"
+                 style={{ display: 'block' }}
+                 data-ad-client="ca-pub-9798575917692871"
+                 data-ad-slot="2290871395"
                  data-ad-format="auto"
                  data-full-width-responsive="true" />
+          </AdBanner>
+
+          {/* AdSense广告单元 - 第三个广告位 */}
+          <AdBanner style={{ marginTop: '60px' }}>
+            <ins className="adsbygoogle"
+                 style={{ display: 'block' }}
+                 data-ad-format="autorelaxed"
+                 data-ad-client="ca-pub-9798575917692871"
+                 data-ad-slot="8950405245" />
           </AdBanner>
 
           <Copyright>
             © {new Date().getFullYear()} md2image. All rights reserved. Made with ❤️
           </Copyright>
           
-          {/* 初始化广告 */}
+          {/* 初始化所有广告单元 */}
           <script dangerouslySetInnerHTML={{
             __html: `
+              (adsbygoogle = window.adsbygoogle || []).push({});
+              (adsbygoogle = window.adsbygoogle || []).push({});
               (adsbygoogle = window.adsbygoogle || []).push({});
             `
           }} />

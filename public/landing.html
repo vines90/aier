@@ -158,15 +158,19 @@
   <!-- Modern landing page styles -->
   <style>
     :root {
-      --primary-color: #2b4c7d;
-      --primary-light: #567bbd;
-      --secondary-color: #f97316;
+      /* 更现代的颜色方案 */
+      --primary-color: #4f46e5; /* 更鲜艳的紫色代替蓝色 */
+      --primary-light: #818cf8;
+      --primary-gradient: linear-gradient(135deg, #4f46e5, #818cf8);
+      --secondary-color: #ec4899; /* 粉色作为次要颜色 */
+      --secondary-light: #f472b6;
       --text-color: #1e293b;
       --text-light: #64748b;
       --bg-color: #ffffff;
       --bg-alt: #f8fafc;
-      --radius: 12px;
-      --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --radius: 16px; /* 更大的圆角 */
+      --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+      --card-hover-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
     }
     
     * {
@@ -215,9 +219,11 @@
     }
     
     header {
-      padding: 1.5rem 0;
-      background-color: var(--bg-color);
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      padding: 1.2rem 0;
+      background-color: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
       position: sticky;
       top: 0;
       z-index: 100;
@@ -254,20 +260,21 @@
       justify-content: center;
       width: 40px;
       height: 40px;
-      background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-      border-radius: 8px;
+      background: var(--primary-gradient);
+      border-radius: 12px;
       margin-right: 10px;
       color: white;
       font-weight: bold;
       font-size: 18px;
       position: relative;
       overflow: hidden;
+      box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
     }
     
     .logo-text {
       font-weight: 800;
       font-size: 1.5rem;
-      background: linear-gradient(120deg, var(--primary-color), var(--primary-light));
+      background: var(--primary-gradient);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
@@ -288,11 +295,54 @@
     .nav-link {
       font-weight: 500;
       font-size: 1rem;
+      position: relative;
+      padding-bottom: 4px;
+    }
+    
+    .nav-link:after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background: var(--primary-gradient);
+      transition: width 0.3s ease;
+    }
+    
+    .nav-link:hover:after {
+      width: 100%;
     }
     
     .hero {
-      padding: 5rem 0;
-      background: linear-gradient(135deg, #f8faff 0%, #e8efff 100%);
+      padding: 6rem 0;
+      background: linear-gradient(135deg, #f8faff 0%, #eff4ff 50%, #f1efff 100%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* 添加抽象背景元素 */
+    .hero:before, .hero:after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.5;
+    }
+    
+    .hero:before {
+      width: 60vw;
+      height: 60vw;
+      background: radial-gradient(circle, rgba(79, 70, 229, 0.08) 0%, rgba(236, 72, 153, 0.04) 50%, rgba(255,255,255,0) 70%);
+      top: -20vw;
+      right: -20vw;
+    }
+    
+    .hero:after {
+      width: 40vw;
+      height: 40vw;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, rgba(79, 70, 229, 0.04) 50%, rgba(255,255,255,0) 70%);
+      bottom: -10vw;
+      left: -10vw;
     }
     
     .hero-container {
@@ -300,16 +350,31 @@
       align-items: center;
       justify-content: space-between;
       gap: 4rem;
+      position: relative;
+      z-index: 2;
     }
     
     .hero-content {
       flex: 1;
+      animation: fadeInUp 0.8s ease;
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
     
     .hero-title {
-      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-size: clamp(2rem, 5vw, 3.75rem);
       font-weight: 800;
-      background: linear-gradient(120deg, var(--primary-color), var(--primary-light));
+      line-height: 1.1;
+      background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 1.5rem;
@@ -318,7 +383,8 @@
     .hero-subtitle {
       font-size: clamp(1.2rem, 2vw, 1.5rem);
       color: var(--text-light);
-      margin-bottom: 2rem;
+      margin-bottom: 2.5rem;
+      max-width: 90%;
     }
     
     .hero-image {
@@ -326,38 +392,77 @@
       display: flex;
       justify-content: center;
       position: relative;
+      animation: floatIn 1s ease;
+    }
+    
+    @keyframes floatIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
     
     .hero-image img {
       max-width: 120%;
       box-shadow: var(--shadow);
       border-radius: var(--radius);
-      transform: scale(1.1);
-      transition: transform 0.3s ease;
+      transform: perspective(1000px) rotateY(-5deg);
+      transition: all 0.5s ease;
     }
     
     .hero-image img:hover {
-      transform: scale(1.15);
+      transform: perspective(1000px) rotateY(-2deg) translateY(-5px);
+      box-shadow: var(--card-hover-shadow);
+    }
+    
+    .buttons-container {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
     
     .cta-button {
       display: inline-block;
-      background-color: var(--secondary-color);
+      background: var(--primary-gradient);
       color: white;
       font-weight: 600;
       font-size: 1.1rem;
-      padding: 0.8rem 2rem;
-      border-radius: var(--radius);
+      padding: 1rem 2.5rem;
+      border-radius: 50px; /* 更圆的按钮 */
       border: none;
       cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
-      box-shadow: 0 4px 6px rgba(249, 115, 22, 0.3);
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .cta-button:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(120deg, var(--primary-light), var(--secondary-light));
+      opacity: 0;
+      z-index: -1;
+      transition: opacity 0.3s;
     }
     
     .cta-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 12px rgba(249, 115, 22, 0.4);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5);
       color: white;
+    }
+    
+    .cta-button:hover:before {
+      opacity: 1;
     }
     
     .secondary-button {
@@ -366,28 +471,40 @@
       color: var(--primary-color);
       font-weight: 600;
       font-size: 1.1rem;
-      padding: 0.8rem 2rem;
-      border-radius: var(--radius);
-      margin-left: 1rem;
-      border: 1px solid var(--primary-color);
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      border: none;
       cursor: pointer;
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: all 0.3s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
     }
     
     .secondary-button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 6px rgba(43, 76, 125, 0.2);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+      background-color: #f9fafb;
     }
     
     .features {
-      padding: 5rem 0;
+      padding: 6rem 0;
       background-color: var(--bg-color);
+      position: relative;
+      overflow: hidden;
     }
     
     .section-title {
       text-align: center;
       font-size: 2.5rem;
-      margin-bottom: 3rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(120deg, var(--primary-color), var(--secondary-color));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
     }
     
     .section-subtitle {
@@ -395,7 +512,7 @@
       font-size: 1.2rem;
       color: var(--text-light);
       max-width: 800px;
-      margin: 0 auto 4rem;
+      margin: 0 auto;
     }
     
     .feature-cards {
@@ -406,42 +523,70 @@
     
     .feature-card {
       background-color: white;
-      padding: 2rem;
+      padding: 2.5rem;
       border-radius: var(--radius);
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+      transition: all 0.4s ease;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
     }
     
     .feature-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      transform: translateY(-10px);
+      box-shadow: var(--card-hover-shadow);
+      border-color: rgba(129, 140, 248, 0.2);
+    }
+    
+    .feature-card:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--primary-gradient);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.4s ease;
+      z-index: 2;
+    }
+    
+    .feature-card:hover:before {
+      transform: scaleX(1);
+      transform-origin: left;
     }
     
     .feature-icon {
-      font-size: 2.5rem;
-      color: var(--primary-color);
+      font-size: 3rem;
       margin-bottom: 1.5rem;
+      display: inline-block;
+      position: relative;
     }
     
     .feature-title {
       font-size: 1.5rem;
       margin-bottom: 1rem;
+      position: relative;
     }
     
     .feature-description {
       color: var(--text-light);
+      line-height: 1.7;
     }
     
     .themes {
-      padding: 5rem 0;
+      padding: 6rem 0;
       background-color: var(--bg-alt);
+      position: relative;
     }
     
     /* 网格布局优化 */
     .theme-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
+      gap: 2.5rem;
     }
 
     .theme-card {
@@ -449,17 +594,20 @@
       border-radius: var(--radius);
       overflow: hidden;
       box-shadow: var(--shadow);
-      transition: transform 0.3s, box-shadow 0.3s;
+      transition: all 0.4s ease;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       height: 100%;
       position: relative;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transform-style: preserve-3d;
     }
 
     .theme-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: var(--card-hover-shadow);
+      border-color: rgba(129, 140, 248, 0.15);
     }
 
     .theme-image-container {
@@ -479,67 +627,92 @@
       height: 100%;
       object-fit: cover;
       object-position: top; /* 确保从图片顶部开始显示 */
-      border-bottom: 1px solid #e2e8f0;
+      transition: transform 0.5s ease;
+    }
+    
+    .theme-card:hover .theme-image {
+      transform: translateY(-10px);
     }
 
     .theme-content {
-      padding: 0.75rem;
+      padding: 1.2rem;
       text-align: center;
       flex-grow: 0;
-      background: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%, rgba(255,255,255,1) 100%);
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      background: white;
+      position: relative;
+      border-top: 1px solid rgba(0, 0, 0, 0.04);
     }
 
     .theme-title {
-      font-size: 1rem;
-      margin-bottom: 0.2rem;
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
       color: var(--primary-color);
     }
 
     .theme-description {
       color: var(--text-light);
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       margin-bottom: 0;
-      line-height: 1.3;
+      line-height: 1.5;
     }
     
     .use-cases {
-      padding: 5rem 0;
+      padding: 6rem 0;
       background-color: var(--bg-color);
+      position: relative;
+      z-index: 1;
     }
     
     .use-case-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 3rem;
     }
     
     .use-case {
       display: flex;
       align-items: flex-start;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      transition: all 0.3s ease;
+      background: white;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+    }
+    
+    .use-case:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+      border-color: rgba(129, 140, 248, 0.15);
     }
     
     .use-case-icon {
-      font-size: 2rem;
-      color: var(--primary-color);
-      margin-right: 1rem;
+      font-size: 2.2rem;
+      margin-right: 1.2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(236, 72, 153, 0.1));
+      border-radius: 12px;
+      flex-shrink: 0;
     }
     
     .use-case-content h3 {
       font-size: 1.3rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-color);
     }
     
     .use-case-content p {
       color: var(--text-light);
+      line-height: 1.7;
     }
     
     .steps {
-      padding: 5rem 0;
+      padding: 6rem 0;
       background-color: var(--bg-alt);
+      position: relative;
     }
     
     .steps-container {
@@ -547,60 +720,155 @@
       flex-direction: column;
       max-width: 800px;
       margin: 0 auto;
+      position: relative;
+    }
+    
+    .step-connector {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 40px;
+      width: 2px;
+      background: linear-gradient(to bottom, 
+        rgba(79, 70, 229, 0.3) 0%, 
+        rgba(236, 72, 153, 0.3) 100%);
+      transform: translateX(-50%);
+      z-index: 1;
     }
     
     .step {
       display: flex;
       align-items: flex-start;
       margin-bottom: 3rem;
+      position: relative;
+      z-index: 2;
+    }
+    
+    .step:last-child {
+      margin-bottom: 0;
     }
     
     .step-number {
-      background: var(--primary-color);
-      color: white;
-      width: 40px;
-      height: 40px;
+      width: 80px;
+      height: 80px;
+      background: white;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-weight: bold;
-      margin-right: 1.5rem;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin-right: 2rem;
       flex-shrink: 0;
+      position: relative;
+      box-shadow: 0 0 0 8px rgba(79, 70, 229, 0.1);
+      background: linear-gradient(135deg, white 0%, #f9fafb 100%);
+      transition: all 0.3s ease;
     }
     
-    .step-content h3 {
+    .step:hover .step-number {
+      transform: scale(1.1);
+      box-shadow: 0 0 0 10px rgba(79, 70, 229, 0.15);
+      color: var(--secondary-color);
+    }
+    
+    .step-content {
+      background-color: white;
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      flex: 1;
+      border: 1px solid rgba(0, 0, 0, 0.03);
+      transition: all 0.3s ease;
+    }
+    
+    .step:hover .step-content {
+      transform: translateY(-5px);
+      box-shadow: var(--card-hover-shadow);
+    }
+    
+    .step-title {
       font-size: 1.5rem;
-      margin-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-color);
     }
     
-    .step-content p {
+    .step-description {
       color: var(--text-light);
+      margin-bottom: 0;
+      line-height: 1.7;
     }
     
-    .cta {
-      padding: 5rem 0;
-      background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
-      color: white;
-      text-align: center;
+    /* FAQ部分 */
+    .faq {
+      padding: 6rem 0;
+      background-color: var(--bg-color);
     }
     
-    .cta h2 {
-      font-size: 2.5rem;
+    .faq-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .faq-item {
       margin-bottom: 1.5rem;
+      border-radius: var(--radius);
+      overflow: hidden;
+      background-color: white;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 0, 0, 0.03);
     }
     
-    .cta p {
-      font-size: 1.2rem;
-      max-width: 700px;
-      margin: 0 auto 2rem;
-      opacity: 0.9;
+    .faq-item:hover {
+      box-shadow: var(--shadow);
+      border-color: rgba(129, 140, 248, 0.15);
     }
     
-    .footer {
-      padding: 3rem 0;
-      background-color: #1a365d;
-      color: white;
+    .faq-question {
+      padding: 1.5rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--text-color);
+      transition: all 0.3s ease;
+    }
+    
+    .faq-question:hover {
+      color: var(--primary-color);
+    }
+    
+    .faq-arrow {
+      transition: transform 0.3s ease;
+    }
+    
+    .faq-answer {
+      padding: 0 1.5rem 1.5rem;
+      color: var(--text-light);
+      line-height: 1.7;
+      display: none;
+    }
+    
+    .faq-item.active .faq-question {
+      color: var(--primary-color);
+    }
+    
+    .faq-item.active .faq-arrow {
+      transform: rotate(180deg);
+    }
+    
+    .faq-item.active .faq-answer {
+      display: block;
+    }
+    
+    /* 页脚 */
+    footer {
+      background-color: #1e293b;
+      color: #f8fafc;
+      padding: 4rem 0 2rem;
     }
     
     .footer-container {
@@ -609,163 +877,93 @@
       gap: 2rem;
     }
     
-    .footer-column h3 {
-      font-size: 1.2rem;
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    
+    .footer-logo-icon {
+      width: 36px;
+      height: 36px;
+      background: white;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 16px;
+      margin-right: 8px;
+      color: var(--primary-color);
+      position: relative;
+    }
+    
+    .footer-logo-arrow {
+      position: absolute;
+      right: 3px;
+      font-size: 12px;
+      transform: rotate(45deg);
+    }
+    
+    .footer-logo-text {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: white;
+    }
+    
+    .footer-description {
+      color: #94a3b8;
       margin-bottom: 1.5rem;
-      color: #e2e8f0;
+      max-width: 300px;
+    }
+    
+    .footer-section h4 {
+      font-size: 1.2rem;
+      margin-bottom: 1.2rem;
+      color: white;
     }
     
     .footer-links {
       list-style: none;
     }
     
-    .footer-links li {
+    .footer-link {
       margin-bottom: 0.8rem;
     }
     
-    .footer-links a {
-      color: #cbd5e1;
+    .footer-link a {
+      color: #94a3b8;
       transition: color 0.3s;
     }
     
-    .footer-links a:hover {
+    .footer-link a:hover {
       color: white;
     }
     
     .copyright {
-      text-align: center;
       margin-top: 3rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
-      color: #cbd5e1;
+      padding-top: 2rem;
+      border-top: 1px solid #2d3748;
+      text-align: center;
+      color: #94a3b8;
       font-size: 0.9rem;
     }
     
-    /* FAQ Section Styles */
-    .faq {
-      padding: 5rem 0;
-      background-color: var(--bg-color);
-    }
-    
-    .faq-item {
-      margin-bottom: 2rem;
-      padding: 1.5rem 2rem;
-      border-radius: var(--radius);
-      background-color: white;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s, box-shadow 0.3s;
-    }
-    
-    .faq-item:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
-    }
-    
-    .faq-item h3 {
-      font-size: 1.25rem;
-      margin-bottom: 0.75rem;
-      color: var(--primary-color);
-    }
-    
-    .faq-item p {
-      color: var(--text-light);
-      margin-bottom: 0;
-    }
-    
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .hero-container {
-        flex-direction: column;
-        gap: 2rem;
+    /* 动画和效果 */
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(79, 70, 229, 0.7);
       }
-      
-      .hero-image img {
-        max-width: 100%;
-        transform: scale(1);
+      70% {
+        box-shadow: 0 0 0 10px rgba(79, 70, 229, 0);
       }
-      
-      .secondary-button {
-        margin-left: 0;
-        margin-top: 1rem;
-        display: block;
-        width: 100%;
-        text-align: center;
-      }
-      
-      .cta-button {
-        display: block;
-        width: 100%;
-        text-align: center;
-      }
-      
-      .nav-menu {
-        display: none;
+      100% {
+        box-shadow: 0 0 0 0 rgba(79, 70, 229, 0);
       }
     }
     
-    /* 主题预览模态框 */
-    .theme-modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-    
-    .theme-modal.show {
-      opacity: 1;
-    }
-    
-    .theme-modal-content {
-      position: relative;
-      max-width: 90%;
-      max-height: 90%;
-      background: white;
-      border-radius: var(--radius);
-      overflow: auto;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-      transform: scale(0.9);
-      transition: transform 0.3s ease;
-    }
-    
-    .theme-modal.show .theme-modal-content {
-      transform: scale(1);
-    }
-    
-    .modal-close {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      font-size: 24px;
-      color: white;
-      cursor: pointer;
-      z-index: 1001;
-      background-color: rgba(0,0,0,0.5);
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.3s;
-    }
-    
-    .modal-close:hover {
-      background-color: rgba(0,0,0,0.8);
-    }
-    
-    .modal-image {
-      width: 100%;
-      height: auto;
-      display: block;
+    .pulse {
+      animation: pulse 2s infinite;
     }
   </style>
 
@@ -804,8 +1002,10 @@
       <div class="hero-content">
         <h1 class="hero-title">Markdown to Image Online Converter</h1>
         <p class="hero-subtitle">Transform your Markdown (MD) into beautiful images instantly - the simplest way to convert Markdown to stunning visuals for social media, documentation, and educational content.</p>
-        <a href="/app" class="cta-button">Convert MD to Image Now</a>
-        <a href="#how-it-works" class="secondary-button">Learn More</a>
+        <div class="buttons-container">
+          <a href="/app" class="cta-button">Convert MD to Image Now</a>
+          <a href="#how-it-works" class="secondary-button">Learn More</a>
+        </div>
       </div>
       <div class="hero-image">
         <img src="hero.png" alt="md2image online Markdown to image converter showing the transformation of MD to beautiful images" loading="lazy" />
@@ -815,8 +1015,10 @@
 
   <section class="features" id="features">
     <div class="container">
-      <h2 class="section-title">Powerful Features</h2>
-      <p class="section-subtitle">md2image comes packed with everything you need to create beautiful, shareable images from your Markdown content.</p>
+      <div class="section-header">
+        <h2 class="section-title">Powerful Features</h2>
+        <p class="section-subtitle">md2image comes packed with everything you need to create beautiful, shareable images from your Markdown content.</p>
+      </div>
       
       <div class="feature-cards">
         <div class="feature-card">
@@ -858,10 +1060,27 @@
     </div>
   </section>
 
+  <!-- 第二个AdSense广告单元 -->
+  <section style="padding: 2rem 0; text-align: center; background-color: var(--bg-color);">
+    <div class="container">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-client="ca-pub-9798575917692871"
+           data-ad-slot="2290871395"
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </section>
+
   <section class="themes" id="themes">
     <div class="container">
-      <h2 class="section-title">Beautiful Themes</h2>
-      <p class="section-subtitle">Choose from a variety of professionally designed themes to make your content stand out.</p>
+      <div class="section-header">
+        <h2 class="section-title">Beautiful Themes</h2>
+        <p class="section-subtitle">Choose from a variety of professionally designed themes to make your content stand out.</p>
+      </div>
       
       <div class="theme-grid">
         <div class="theme-card" data-theme="light">
@@ -949,39 +1168,41 @@
 
   <section class="use-cases" id="use-cases">
     <div class="container">
-      <h2 class="section-title">Perfect for Many Use Cases</h2>
-      <p class="section-subtitle">md2image helps professionals across industries create beautiful visual content.</p>
+      <div class="section-header">
+        <h2 class="section-title">Perfect Use Cases</h2>
+        <p class="section-subtitle">md2image is ideal for many creative professionals and content creators.</p>
+      </div>
       
       <div class="use-case-grid">
         <div class="use-case">
           <div class="use-case-icon">📱</div>
           <div class="use-case-content">
             <h3>Social Media Content</h3>
-            <p>Create eye-catching posts for Twitter, LinkedIn, Instagram, and more.</p>
+            <p>Create beautiful posts for Twitter, LinkedIn, Instagram, and other platforms with perfectly formatted text and code.</p>
           </div>
         </div>
         
         <div class="use-case">
-          <div class="use-case-icon">📚</div>
+          <div class="use-case-icon">📝</div>
           <div class="use-case-content">
             <h3>Technical Documentation</h3>
-            <p>Generate beautiful code samples and technical explanations.</p>
+            <p>Transform documentation snippets into shareable, visually appealing images for tutorials and guides.</p>
           </div>
         </div>
         
         <div class="use-case">
-          <div class="use-case-icon">🎓</div>
+          <div class="use-case-icon">👨‍🏫</div>
           <div class="use-case-content">
             <h3>Educational Content</h3>
-            <p>Create clear, engaging materials for students and learners.</p>
+            <p>Educators can create visually consistent learning materials with code examples and formatted text.</p>
           </div>
         </div>
         
         <div class="use-case">
-          <div class="use-case-icon">💻</div>
+          <div class="use-case-icon">👨‍💻</div>
           <div class="use-case-content">
-            <h3>Developer Snippets</h3>
-            <p>Share code examples with syntax highlighting and proper formatting.</p>
+            <h3>Developer Sharing</h3>
+            <p>Share code snippets with syntax highlighting for presentations, blog posts, or discussion forums.</p>
           </div>
         </div>
         
@@ -989,15 +1210,15 @@
           <div class="use-case-icon">✍️</div>
           <div class="use-case-content">
             <h3>Blog Content</h3>
-            <p>Generate featured images for technical articles and blog posts.</p>
+            <p>Generate featured images for technical articles or create visually appealing code blocks.</p>
           </div>
         </div>
         
         <div class="use-case">
-          <div class="use-case-icon">🚀</div>
+          <div class="use-case-icon">🎯</div>
           <div class="use-case-content">
-            <h3>Product Updates</h3>
-            <p>Create visually appealing release notes and product announcements.</p>
+            <h3>Marketing Material</h3>
+            <p>Create consistent branded content with custom themes for presentations and promotional materials.</p>
           </div>
         </div>
       </div>
@@ -1006,39 +1227,35 @@
 
   <section class="steps" id="how-it-works">
     <div class="container">
-      <h2 class="section-title">How It Works</h2>
-      <p class="section-subtitle">Creating beautiful images from your Markdown content is simple with md2image.</p>
+      <div class="section-header">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Converting your Markdown to beautiful images is simple and fast with md2image.</p>
+      </div>
       
       <div class="steps-container">
+        <div class="step-connector"></div>
+        
         <div class="step">
           <div class="step-number">1</div>
           <div class="step-content">
-            <h3>Write or Paste Markdown</h3>
-            <p>Enter your content in our easy-to-use Markdown editor. Use simple syntax for headings, lists, code blocks, and more.</p>
+            <h3 class="step-title">Write or Paste Content</h3>
+            <p class="step-description">Use our intuitive Markdown editor to write or paste your content. Our editor supports all standard Markdown formatting including headings, lists, code blocks, and more.</p>
           </div>
         </div>
         
         <div class="step">
           <div class="step-number">2</div>
           <div class="step-content">
-            <h3>Choose Your Theme</h3>
-            <p>Select from 8 beautiful themes to match your content style and purpose.</p>
+            <h3 class="step-title">Choose Your Theme</h3>
+            <p class="step-description">Select from our 8 professionally designed themes to match your style or brand. Preview your content in real-time as you make changes.</p>
           </div>
         </div>
         
         <div class="step">
           <div class="step-number">3</div>
           <div class="step-content">
-            <h3>Preview and Customize</h3>
-            <p>See exactly how your content will look with our real-time preview. Make adjustments as needed.</p>
-          </div>
-        </div>
-        
-        <div class="step">
-          <div class="step-number">4</div>
-          <div class="step-content">
-            <h3>Export Your Image</h3>
-            <p>Click the Export button to download your high-quality PNG image, ready to share on any platform.</p>
+            <h3 class="step-title">Export and Share</h3>
+            <p class="step-description">With one click, export your Markdown as a high-quality PNG image, ready to share on social media, in documentation, or anywhere you need beautiful formatted content.</p>
           </div>
         </div>
       </div>
@@ -1047,43 +1264,50 @@
 
   <section class="faq" id="faq">
     <div class="container">
-      <h2 class="section-title">Frequently Asked Questions</h2>
-      <p class="section-subtitle">Everything you need to know about converting Markdown to images online.</p>
+      <div class="section-header">
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Get answers to common questions about md2image and Markdown to image conversion.</p>
+      </div>
       
-      <div style="max-width: 800px; margin: 0 auto;">
+      <div class="faq-container">
         <div class="faq-item">
-          <h3>What is md2image?</h3>
-          <p>md2image is a free online tool that converts Markdown to image. It transforms your Markdown content into beautiful shareable images with multiple themes, perfect for social media, documentation, and educational content.</p>
+          <div class="faq-question">
+            What is md2image?
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            md2image is a free online tool that converts Markdown to image. It transforms your Markdown content into beautiful shareable images with multiple themes, perfect for social media, documentation, and educational content.
+          </div>
         </div>
         
         <div class="faq-item">
-          <h3>How do I convert Markdown to image online?</h3>
-          <p>Converting Markdown to image online is simple with md2image: (1) Write or paste your Markdown content in the editor, (2) Choose your preferred theme, (3) Preview and adjust as needed, (4) Export your content as a high-quality image with one click.</p>
+          <div class="faq-question">
+            How do I convert Markdown to image online?
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            Converting Markdown to image online is simple with md2image: (1) Write or paste your Markdown content in the editor, (2) Choose your preferred theme, (3) Preview and adjust as needed, (4) Export your content as a high-quality image with one click.
+          </div>
         </div>
         
         <div class="faq-item">
-          <h3>What themes are available for MD to image conversion?</h3>
-          <p>md2image offers 8 professionally designed themes for converting MD to images: Light, Warm, Elegant, Dark, Nature, Sunset, Ocean, and Mint, each optimized for different types of content and purposes.</p>
+          <div class="faq-question">
+            What themes are available for MD to image conversion?
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            md2image offers 8 professionally designed themes for converting MD to images: Light, Warm, Elegant, Dark, Nature, Sunset, Ocean, and Mint, each optimized for different types of content and purposes.
+          </div>
         </div>
         
         <div class="faq-item">
-          <h3>Is this Markdown to image converter free to use?</h3>
-          <p>Yes, md2image Markdown to image converter is completely free to use with no limitations on the number of images you can create or export.</p>
-        </div>
-        
-        <div class="faq-item">
-          <h3>What image formats can I export my Markdown to?</h3>
-          <p>Currently, md2image supports export to high-quality PNG format, which is perfect for sharing your converted Markdown on social media and other platforms.</p>
-        </div>
-        
-        <div class="faq-item">
-          <h3>Does this Markdown to image tool support code syntax highlighting?</h3>
-          <p>Yes, md2image Markdown to image converter provides beautiful syntax highlighting for over 180 programming languages and markup formats, making it perfect for sharing code examples as images.</p>
-        </div>
-        
-        <div class="faq-item">
-          <h3>Why should I convert MD to image instead of sharing text?</h3>
-          <p>Converting MD to image creates visually appealing, consistently formatted content that stands out on social media, maintains its appearance across platforms, and can be easily shared in places where Markdown isn't supported.</p>
+          <div class="faq-question">
+            Is this Markdown to image converter free to use?
+            <span class="faq-arrow">▼</span>
+          </div>
+          <div class="faq-answer">
+            Yes, md2image Markdown to image converter is completely free to use with no limitations on the number of images you can create or export.
+          </div>
         </div>
       </div>
     </div>
@@ -1092,7 +1316,10 @@
   <!-- New About Us Section -->
   <section class="about" id="about">
     <div class="container">
-      <h2 class="section-title">About Us</h2>
+      <div class="section-header">
+        <h2 class="section-title">About Us</h2>
+        <p class="section-subtitle">The story behind md2image</p>
+      </div>
       <div style="max-width: 800px; margin: 0 auto; background: white; padding: 2rem; border-radius: var(--radius); box-shadow: var(--shadow);">
         <h3 style="margin-bottom: 1.5rem;">A Letter to  Users</h3>
         
@@ -1146,32 +1373,85 @@
   </section>
 
   <section class="cta">
-    <div class="container">
-      <h2>Start Converting Markdown to Images Today</h2>
-      <p>Join thousands of content creators, developers, and educators who use md2image to transform their MD to beautiful images for sharing online.</p>
-      <a href="/app" class="cta-button">Convert MD to Image — It's Free!</a>
+    <div class="container" style="text-align: center; padding: 5rem 0; background: var(--primary-gradient); color: white; border-radius: var(--radius);">
+      <h2 style="color: white; font-size: 2.5rem; margin-bottom: 1.5rem;">Start Converting Markdown to Images Today</h2>
+      <p style="font-size: 1.2rem; max-width: 700px; margin: 0 auto 2rem; opacity: 0.9;">Join thousands of content creators, developers, and educators who use md2image to transform their MD to beautiful images for sharing online.</p>
+      <a href="/app" class="cta-button" style="display: inline-block; padding: 1rem 3rem; font-size: 1.2rem;">Convert MD to Image — It's Free!</a>
     </div>
   </section>
 
   <!-- AdSense 广告单元 -->
   <section style="padding: 2rem 0; text-align: center; background-color: #f8fafc;">
     <div class="container">
-      <!-- 横幅广告 -->
       <ins class="adsbygoogle"
-           style="display:block; margin:0 auto; max-width:970px;"
+           style="display:block"
+           data-ad-format="autorelaxed"
            data-ad-client="ca-pub-9798575917692871"
-           data-ad-slot="YOUR_AD_SLOT_ID"
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
+           data-ad-slot="3180808479"></ins>
       <script>
            (adsbygoogle = window.adsbygoogle || []).push({});
       </script>
     </div>
   </section>
 
-  <footer class="footer">
+  <!-- 第三个AdSense广告单元 -->
+  <section style="padding: 3rem 0; text-align: center; background-color: var(--bg-color);">
+    <div class="container">
+      <ins class="adsbygoogle"
+           style="display:block"
+           data-ad-format="autorelaxed"
+           data-ad-client="ca-pub-9798575917692871"
+           data-ad-slot="8950405245"></ins>
+      <script>
+           (adsbygoogle = window.adsbygoogle || []).push({});
+      </script>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-container">
+      <div class="footer-section">
+        <div class="footer-logo">
+          <div class="footer-logo-icon">
+            md<span class="footer-logo-arrow">➚</span>
+          </div>
+          <div class="footer-logo-text">md2image</div>
+        </div>
+        <p class="footer-description">Transform your Markdown content into beautiful, shareable images with multiple themes and professional styling.</p>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Product</h4>
+        <ul class="footer-links">
+          <li class="footer-link"><a href="/app">MD to Image App</a></li>
+          <li class="footer-link"><a href="#features">Features</a></li>
+          <li class="footer-link"><a href="#themes">Themes</a></li>
+          <li class="footer-link"><a href="#use-cases">Use Cases</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Resources</h4>
+        <ul class="footer-links">
+          <li class="footer-link"><a href="#how-it-works">How It Works</a></li>
+          <li class="footer-link"><a href="#faq">FAQ</a></li>
+          <li class="footer-link"><a href="https://github.com/markdown-guide/markdown-guide" target="_blank" rel="noopener noreferrer">Markdown Guide</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h4>Company</h4>
+        <ul class="footer-links">
+          <li class="footer-link"><a href="#about">About Us</a></li>
+          <li class="footer-link"><a href="#contact">Contact</a></li>
+          <li class="footer-link"><a href="/privacy">Privacy Policy</a></li>
+          <li class="footer-link"><a href="/terms">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    
     <div class="copyright">
-      <p>© <script>document.write(new Date().getFullYear())</script> md2image. All rights reserved. Made with ❤️</p>
+      © <script>document.write(new Date().getFullYear())</script> md2image. All rights reserved.
     </div>
   </footer>
 
@@ -1231,6 +1511,19 @@
           modal.style.display = 'none';
         }, 300);
       }
+    });
+
+    // FAQ功能
+    document.addEventListener('DOMContentLoaded', function() {
+      const faqItems = document.querySelectorAll('.faq-item');
+      
+      faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        
+        question.addEventListener('click', () => {
+          item.classList.toggle('active');
+        });
+      });
     });
   </script>
 </body>
