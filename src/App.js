@@ -1041,6 +1041,28 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
     }
   };
 
+  // 广告初始化效果
+  useEffect(() => {
+    if (isAppRoute) {
+      try {
+        // 确保全局adsbygoogle对象存在
+        if (window.adsbygoogle && window.adsbygoogle.push) {
+          // 在组件挂载后尝试初始化所有广告
+          const ads = document.querySelectorAll('.adsbygoogle');
+          ads.forEach(ad => {
+            try {
+              (window.adsbygoogle = window.adsbygoogle || []).push({});
+            } catch (e) {
+              console.error('广告初始化失败:', e);
+            }
+          });
+        }
+      } catch (e) {
+        console.error('AdSense初始化错误:', e);
+      }
+    }
+  }, [isAppRoute]); // 只在组件挂载和isAppRoute变化时运行
+
   return (
     <>
       {isAppRoute ? (
@@ -1141,9 +1163,10 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
           <AdBanner>
             <ins className="adsbygoogle"
                  style={{ display: 'block' }}
-                 data-ad-format="autorelaxed"
                  data-ad-client="ca-pub-9798575917692871"
-                 data-ad-slot="3180808479" />
+                 data-ad-slot="3180808479"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true" />
           </AdBanner>
 
           {/* AdSense广告单元 - 第二个广告位 */}
@@ -1160,23 +1183,15 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
           <AdBanner style={{ marginTop: '60px' }}>
             <ins className="adsbygoogle"
                  style={{ display: 'block' }}
-                 data-ad-format="autorelaxed"
                  data-ad-client="ca-pub-9798575917692871"
-                 data-ad-slot="8950405245" />
+                 data-ad-slot="8950405245"
+                 data-ad-format="auto" 
+                 data-full-width-responsive="true" />
           </AdBanner>
 
           <Copyright>
             © {new Date().getFullYear()} md2image. All rights reserved. Made with ❤️
           </Copyright>
-          
-          {/* 初始化所有广告单元 */}
-          <script dangerouslySetInnerHTML={{
-            __html: `
-              (adsbygoogle = window.adsbygoogle || []).push({});
-              (adsbygoogle = window.adsbygoogle || []).push({});
-              (adsbygoogle = window.adsbygoogle || []).push({});
-            `
-          }} />
         </AppContainer>
       ) : (
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
