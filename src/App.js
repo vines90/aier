@@ -771,7 +771,7 @@ function App() {
   useEffect(() => {
     if (window.location.pathname === '/app') {
       setIsAppRoute(true);
-    } else if (window.location.pathname === '/') {
+    } else if (window.location.pathname === '/' && process.env.NODE_ENV !== 'test') {
       window.location.href = '/landing.html';
     } else {
       setIsAppRoute(true);
@@ -1037,6 +1037,10 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
       message.error('Export failed, please try again');
       console.error(err);
     } finally {
+      // 发生错误时也清理临时样式表
+      if (styleSheet.parentNode) {
+        styleSheet.parentNode.removeChild(styleSheet);
+      }
       setLoading(false);
     }
   };
