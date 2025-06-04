@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import styled from 'styled-components';
-import { Button, message, Spin, Radio } from 'antd';
+import { Button, message, Spin, Radio, InputNumber } from 'antd';
 import { CameraOutlined } from '@ant-design/icons';
 import * as htmlToImage from 'html-to-image';
 import rehypePrism from 'rehype-prism-plus';
@@ -135,9 +135,9 @@ const EditorContainer = styled.div`
     border-radius: 12px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     border: none;
-    background: #ffffff;
+    background: ${props => props.background} !important;
     height: calc(100vh - 250px) !important;
-    color: #2c3e50 !important;
+    color: ${props => props.textColor} !important;
 
     @media (max-width: 768px) {
       height: 300px !important;
@@ -150,31 +150,31 @@ const EditorContainer = styled.div`
     padding: 8px;
   }
   .w-md-editor-input {
-    font-size: 15px;
+    font-size: ${props => props.fontSize}px;
     padding: 16px;
-    color: #2c3e50 !important;
+    color: ${props => props.textColor} !important;
   }
   .w-md-editor-text {
-    background: #ffffff !important;
-    color: #2c3e50 !important;
+    background: ${props => props.background} !important;
+    color: ${props => props.textColor} !important;
   }
-  .w-md-editor-text-pre, 
+  .w-md-editor-text-pre,
   .w-md-editor-text-input,
   .w-md-editor-text-pre > code,
   textarea {
-    font-size: 15px !important;
-    color: #2c3e50 !important;
-    background: #ffffff !important;
+    font-size: ${props => props.fontSize}px !important;
+    color: ${props => props.textColor} !important;
+    background: ${props => props.background} !important;
     line-height: 1.8 !important;
-    caret-color: #2c3e50 !important;
+    caret-color: ${props => props.textColor} !important;
   }
   .w-md-editor-content {
-    background: #ffffff !important;
-    color: #2c3e50 !important;
+    background: ${props => props.background} !important;
+    color: ${props => props.textColor} !important;
   }
   .wmde-markdown-color {
-    background: #ffffff !important;
-    color: #2c3e50 !important;
+    background: ${props => props.background} !important;
+    color: ${props => props.textColor} !important;
   }
   
   /* 修复编辑器内所有文字颜色 */
@@ -182,10 +182,10 @@ const EditorContainer = styled.div`
     color: #94a3b8 !important;
   }
   .w-md-editor-text * {
-    color: #2c3e50 !important;
+    color: ${props => props.textColor} !important;
   }
   .token {
-    color: #2c3e50 !important;
+    color: ${props => props.textColor} !important;
     background: none !important;
   }
   .token.punctuation {
@@ -204,17 +204,17 @@ const EditorContainer = styled.div`
   
   /* 额外的样式修复 */
   .w-md-editor-text-pre > code * {
-    color: #2c3e50 !important;
+    color: ${props => props.textColor} !important;
   }
   .w-md-editor-text-pre {
-    color: #2c3e50 !important;
+    color: ${props => props.textColor} !important;
   }
   .w-md-editor-preview {
-    background: #ffffff !important;
-    color: #2c3e50 !important;
+    background: ${props => props.background} !important;
+    color: ${props => props.textColor} !important;
   }
   .w-md-editor-preview * {
-    color: #2c3e50 !important;
+    color: ${props => props.textColor} !important;
   }
   
   /* 确保编辑器工具栏按钮可见 */
@@ -231,20 +231,20 @@ const EditorContainer = styled.div`
 
   /* 强制覆盖默认主题 */
   [data-color-mode="light"] {
-    --color-fg-default: #2c3e50 !important;
-    --color-canvas-default: #ffffff !important;
+    --color-fg-default: ${props => props.textColor} !important;
+    --color-canvas-default: ${props => props.background} !important;
     --color-border-default: #eaecef !important;
   }
   
   /* 编辑器文本区域 */
   .w-md-editor-text-pre > code,
   .w-md-editor-text-input {
-    -webkit-text-fill-color: #2c3e50 !important;
+    -webkit-text-fill-color: ${props => props.textColor} !important;
   }
   
   /* 确保光标可见 */
   .w-md-editor-text-input {
-    -webkit-text-fill-color: #2c3e50 !important;
+    -webkit-text-fill-color: ${props => props.textColor} !important;
     opacity: 1 !important;
   }
 `;
@@ -295,7 +295,7 @@ const PreviewContainer = styled.div`
   `}
 
   .wmde-markdown {
-    font-size: 15px;
+    font-size: ${props => props.fontSize}px;
     line-height: 1.8;
     color: ${props => props.textColor};
     background: ${props => props.theme === 'gradient' ? 'transparent' : props.background};
@@ -840,7 +840,15 @@ Try this example code block:
 Ready to transform your Markdown into beautiful images? Start creating now!`);
   const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState('warm');
+  const [fontSize, setFontSize] = useState(15);
+  const [textColorCustom, setTextColorCustom] = useState(themes['warm'].textColor);
+  const [backgroundColorCustom, setBackgroundColorCustom] = useState(themes['warm'].background);
   const previewRef = useRef(null);
+
+  useEffect(() => {
+    setTextColorCustom(themes[theme].textColor);
+    setBackgroundColorCustom(themes[theme].background);
+  }, [theme]);
 
   const handleExport = async () => {
     if (!previewRef.current) return;
@@ -1094,6 +1102,27 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
               <Radio.Button value="mint">Mint</Radio.Button>
             </Radio.Group>
 
+            <InputNumber
+              min={12}
+              max={48}
+              value={fontSize}
+              onChange={value => setFontSize(value)}
+            />
+
+            <input
+              type="color"
+              value={textColorCustom}
+              onChange={e => setTextColorCustom(e.target.value)}
+              style={{ width: 32, height: 32, border: 'none', background: 'none' }}
+            />
+
+            <input
+              type="color"
+              value={backgroundColorCustom}
+              onChange={e => setBackgroundColorCustom(e.target.value)}
+              style={{ width: 32, height: 32, border: 'none', background: 'none' }}
+            />
+
             <StyledButton 
               type="primary" 
               icon={<CameraOutlined />}
@@ -1107,7 +1136,11 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
 
           <ContentLayout>
             <EditorSection>
-              <EditorContainer>
+              <EditorContainer
+                background={backgroundColorCustom}
+                textColor={textColorCustom}
+                fontSize={fontSize}
+              >
                 <MDEditor
                   value={value}
                   onChange={setValue}
@@ -1117,10 +1150,10 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
                   textareaProps={{
                     placeholder: 'Enter your Markdown content here...',
                     style: {
-                      fontSize: '15px',
+                      fontSize: `${fontSize}px`,
                       lineHeight: '1.8',
-                      color: '#2c3e50',
-                      background: '#ffffff'
+                      color: textColorCustom,
+                      background: backgroundColorCustom
                     }
                   }}
                   visibleDragbar={false}
@@ -1131,13 +1164,13 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
                   ]}
                   previewOptions={{
                     style: {
-                      color: '#2c3e50',
-                      background: '#ffffff'
+                      color: textColorCustom,
+                      background: backgroundColorCustom
                     }
                   }}
                   style={{
-                    color: '#2c3e50',
-                    background: '#ffffff'
+                    color: textColorCustom,
+                    background: backgroundColorCustom
                   }}
                 />
               </EditorContainer>
@@ -1145,9 +1178,12 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
 
             <PreviewSection>
               <Spin spinning={loading}>
-                <PreviewContainer 
-                  ref={previewRef} 
+                <PreviewContainer
+                  ref={previewRef}
                   {...themes[theme]}
+                  background={backgroundColorCustom}
+                  textColor={textColorCustom}
+                  fontSize={fontSize}
                   theme={theme}
                 >
                   <MDEditor.Markdown 
