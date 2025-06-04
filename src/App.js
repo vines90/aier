@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import MDEditor from '@uiw/react-md-editor';
 import styled from 'styled-components';
-import { Button, message, Spin, Radio } from 'antd';
+import { Button, message, Spin, Radio, InputNumber, Input, ColorPicker } from 'antd';
 import { CameraOutlined } from '@ant-design/icons';
 import * as htmlToImage from 'html-to-image';
 import rehypePrism from 'rehype-prism-plus';
@@ -251,7 +251,10 @@ const EditorContainer = styled.div`
 
 const PreviewContainer = styled.div`
   padding: 48px 60px;
-  background: ${props => props.background};
+  background: ${props =>
+    props.backgroundType === 'gradient'
+      ? `linear-gradient(135deg, ${props.bg1}, ${props.bg2})`
+      : props.bg1};
   border-radius: 16px;
   box-shadow: ${props => props.theme === 'dark' 
     ? '0 8px 32px rgba(0, 0, 0, 0.2)' 
@@ -295,10 +298,11 @@ const PreviewContainer = styled.div`
   `}
 
   .wmde-markdown {
-    font-size: 15px;
+    font-size: ${props => props.bodyFontSize}px;
     line-height: 1.8;
-    color: ${props => props.textColor};
-    background: ${props => props.theme === 'gradient' ? 'transparent' : props.background};
+    color: ${props => props.bodyColor};
+    font-family: ${props => props.bodyFontFamily};
+    background: transparent;
   }
 
   /* 确保所有emoji正确显示 */
@@ -308,15 +312,15 @@ const PreviewContainer = styled.div`
   .wmde-markdown p,
   .wmde-markdown li,
   .wmde-markdown blockquote {
-    font-family: 'PingFang SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+    font-family: ${props => props.bodyFontFamily};
   }
 
   /* 允许emoji显示彩色 */
   .wmde-markdown p,
   .wmde-markdown li,
   .wmde-markdown blockquote {
-    color: ${props => props.textColor};
-    -webkit-text-fill-color: ${props => props.textColor};
+    color: ${props => props.bodyColor};
+    -webkit-text-fill-color: ${props => props.bodyColor};
     
     /* 确保emoji彩色显示 */
     .emoji, span.emoji, 
@@ -335,7 +339,8 @@ const PreviewContainer = styled.div`
     line-height: 1.4;
     margin: 1.2em 0 0.8em;
     letter-spacing: -0.01em;
-    color: ${props => props.titleColor};
+    color: ${props => props.headingColor};
+    font-family: ${props => props.headingFontFamily};
     ${props => props.theme === 'gradient' && `
       background: linear-gradient(90deg, #2f365f, #4f46e5);
       -webkit-background-clip: text;
@@ -378,19 +383,19 @@ const PreviewContainer = styled.div`
   }
 
   .wmde-markdown h1 {
-    font-size: 1.8em;
+    font-size: ${props => props.h1Size}em;
     border-bottom: 2px solid ${props => props.borderColor};
     padding-bottom: 0.3em;
   }
 
   .wmde-markdown h2 {
-    font-size: 1.5em;
+    font-size: ${props => props.h2Size}em;
     border-bottom: 1px solid ${props => props.borderColor};
     padding-bottom: 0.3em;
   }
 
   .wmde-markdown h3 {
-    font-size: 1.25em;
+    font-size: ${props => props.h3Size}em;
     margin: 1em 0 0.6em;
   }
 
@@ -634,6 +639,21 @@ const ControlGroup = styled.div`
   }
 `;
 
+const SettingsPanel = styled.div`
+  max-width: 720px;
+  margin: 0 auto 30px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+
+  .setting-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
 const themes = {
   light: {
     background: '#ffffff',
@@ -840,6 +860,16 @@ Try this example code block:
 Ready to transform your Markdown into beautiful images? Start creating now!`);
   const [loading, setLoading] = useState(false);
   const [theme, setTheme] = useState('warm');
+  const [h1Size, setH1Size] = useState(1.8);
+  const [h2Size, setH2Size] = useState(1.5);
+  const [h3Size, setH3Size] = useState(1.25);
+  const [headingColor, setHeadingColor] = useState(themes['warm'].titleColor);
+  const [headingFontFamily, setHeadingFontFamily] = useState('PingFang SC');
+  const [bodyColor, setBodyColor] = useState(themes['warm'].textColor);
+  const [bodyFontSize, setBodyFontSize] = useState(15);
+  const [bodyFontFamily, setBodyFontFamily] = useState('PingFang SC');
+  const [bgColor1, setBgColor1] = useState('#fffaf5');
+  const [bgColor2, setBgColor2] = useState('#fffaf5');
   const previewRef = useRef(null);
 
   const handleExport = async () => {
@@ -1105,6 +1135,49 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
             </StyledButton>
           </ControlGroup>
 
+          <SettingsPanel>
+            <div className="setting-item">
+              <span>H1 Size</span>
+              <InputNumber min={0.5} max={5} step={0.1} value={h1Size} onChange={setH1Size} />
+            </div>
+            <div className="setting-item">
+              <span>H2 Size</span>
+              <InputNumber min={0.5} max={5} step={0.1} value={h2Size} onChange={setH2Size} />
+            </div>
+            <div className="setting-item">
+              <span>H3 Size</span>
+              <InputNumber min={0.5} max={5} step={0.1} value={h3Size} onChange={setH3Size} />
+            </div>
+            <div className="setting-item">
+              <span>Heading Color</span>
+              <ColorPicker value={headingColor} onChange={(_, c) => setHeadingColor(c.toHexString())} />
+            </div>
+            <div className="setting-item">
+              <span>Heading Font</span>
+              <Input value={headingFontFamily} onChange={e => setHeadingFontFamily(e.target.value)} />
+            </div>
+            <div className="setting-item">
+              <span>Body Size</span>
+              <InputNumber min={10} max={40} value={bodyFontSize} onChange={setBodyFontSize} />
+            </div>
+            <div className="setting-item">
+              <span>Body Color</span>
+              <ColorPicker value={bodyColor} onChange={(_, c) => setBodyColor(c.toHexString())} />
+            </div>
+            <div className="setting-item">
+              <span>Body Font</span>
+              <Input value={bodyFontFamily} onChange={e => setBodyFontFamily(e.target.value)} />
+            </div>
+            <div className="setting-item">
+              <span>BG Color 1</span>
+              <ColorPicker value={bgColor1} onChange={(_, c) => setBgColor1(c.toHexString())} />
+            </div>
+            <div className="setting-item">
+              <span>BG Color 2</span>
+              <ColorPicker value={bgColor2} onChange={(_, c) => setBgColor2(c.toHexString())} />
+            </div>
+          </SettingsPanel>
+
           <ContentLayout>
             <EditorSection>
               <EditorContainer>
@@ -1145,10 +1218,21 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
 
             <PreviewSection>
               <Spin spinning={loading}>
-                <PreviewContainer 
-                  ref={previewRef} 
+                <PreviewContainer
+                  ref={previewRef}
                   {...themes[theme]}
                   theme={theme}
+                  bg1={bgColor1}
+                  bg2={bgColor2}
+                  backgroundType={bgColor1 !== bgColor2 ? 'gradient' : 'solid'}
+                  h1Size={h1Size}
+                  h2Size={h2Size}
+                  h3Size={h3Size}
+                  headingColor={headingColor}
+                  headingFontFamily={headingFontFamily}
+                  bodyColor={bodyColor}
+                  bodyFontFamily={bodyFontFamily}
+                  bodyFontSize={bodyFontSize}
                 >
                   <MDEditor.Markdown 
                     source={value} 

@@ -68,3 +68,13 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+## Customization Options
+
+The editor preview now allows manual control of typography and background. You can adjust:
+
+- Heading font sizes, color and font family
+- Body text size, color and font family
+- Background gradient colors
+
+All exported images will use the same settings as the live preview to ensure high quality output.
