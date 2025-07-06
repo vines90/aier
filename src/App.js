@@ -1086,7 +1086,7 @@ const SettingsPanel = styled.div`
   }
 
   .tab-content {
-    display: flex;
+  display: flex;
     flex-direction: column;
     gap: 16px;
   }
@@ -1286,22 +1286,7 @@ const themes = {
   }
 };
 
-// AdSense广告组件
-const AdBanner = styled.div`
-  margin: 80px 0;
-  text-align: center;
-  min-height: 90px;
-  padding: 20px;
-  border-top: 1px solid #e2e8f0;
-  border-bottom: 1px solid #e2e8f0;
-  background: #fafbfc;
-  border-radius: 8px;
-  
-  @media (max-width: 768px) {
-    margin: 60px 0;
-    padding: 15px;
-  }
-`;
+
 
 function App() {
   const [isAppRoute, setIsAppRoute] = useState(false);
@@ -1387,7 +1372,7 @@ You can also use inline code like \`npm install\` or \`const value = 42\`.
 ### 🎨 Theme Gallery
 
 - **Light**: Professional and clean
-- **Warm**: Soft and engaging  
+- **Warm**: Soft and engaging
 - **Elegant**: Modern and stylish
 - **Dark**: Easy on the eyes
 
@@ -2084,50 +2069,50 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
       
       // Handle blockquotes (only in markdown mode)
       if (mode === 'markdown') {
-        blockquotes.forEach(blockquote => {
+      blockquotes.forEach(blockquote => {
           // Save more original style properties
-          originalBlockquoteStyles.push({
-            background: blockquote.style.background,
-            borderLeft: blockquote.style.borderLeft,
-            borderImage: blockquote.style.borderImage,
-            borderImageSlice: blockquote.style.borderImageSlice,
-            backdropFilter: blockquote.style.backdropFilter,
-            boxShadow: blockquote.style.boxShadow
-          });
-          
-          // Set solid background and border based on current theme
-          if (theme === 'gradient') {
-            blockquote.style.background = '#f1f5f9';
-            blockquote.style.borderLeft = '3px solid #6366f1';
-            blockquote.style.borderImage = 'none';
-            blockquote.style.backdropFilter = 'none';
-            blockquote.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.05)';
-          } else if (theme === 'dark') {
-            blockquote.style.background = '#2d3748';
-            blockquote.style.borderLeft = '3px solid #60a5fa';
-          } else if (theme === 'warm') {
-            blockquote.style.background = '#fff5eb';
-            blockquote.style.borderLeft = '3px solid #dd6b20';
-          } else if (theme === 'elegant') {
-            blockquote.style.background = '#f1f5f9';
-            blockquote.style.borderLeft = '3px solid #4f46e5';
-          } else if (theme === 'nature') {
-            blockquote.style.background = '#e6f2ec';
-            blockquote.style.borderLeft = '3px solid #2d6a4f';
-          } else if (theme === 'sunset') {
-            blockquote.style.background = '#fef2ed';
-            blockquote.style.borderLeft = '3px solid #e85d75';
-          } else if (theme === 'ocean') {
-            blockquote.style.background = '#edf3fc';
-            blockquote.style.borderLeft = '3px solid #1e88e5';
-          } else if (theme === 'mint') {
-            blockquote.style.background = '#e8f7f5';
-            blockquote.style.borderLeft = '3px solid #14b8a6';
-          } else { // light theme
-            blockquote.style.background = '#f8f9fa';
-            blockquote.style.borderLeft = '3px solid #3182ce';
-          }
+        originalBlockquoteStyles.push({
+          background: blockquote.style.background,
+          borderLeft: blockquote.style.borderLeft,
+          borderImage: blockquote.style.borderImage,
+          borderImageSlice: blockquote.style.borderImageSlice,
+          backdropFilter: blockquote.style.backdropFilter,
+          boxShadow: blockquote.style.boxShadow
         });
+        
+          // Set solid background and border based on current theme
+        if (theme === 'gradient') {
+          blockquote.style.background = '#f1f5f9';
+          blockquote.style.borderLeft = '3px solid #6366f1';
+          blockquote.style.borderImage = 'none';
+          blockquote.style.backdropFilter = 'none';
+          blockquote.style.boxShadow = '0 2px 5px rgba(0, 0, 0, 0.05)';
+        } else if (theme === 'dark') {
+          blockquote.style.background = '#2d3748';
+          blockquote.style.borderLeft = '3px solid #60a5fa';
+        } else if (theme === 'warm') {
+          blockquote.style.background = '#fff5eb';
+          blockquote.style.borderLeft = '3px solid #dd6b20';
+        } else if (theme === 'elegant') {
+          blockquote.style.background = '#f1f5f9';
+          blockquote.style.borderLeft = '3px solid #4f46e5';
+        } else if (theme === 'nature') {
+          blockquote.style.background = '#e6f2ec';
+          blockquote.style.borderLeft = '3px solid #2d6a4f';
+        } else if (theme === 'sunset') {
+          blockquote.style.background = '#fef2ed';
+          blockquote.style.borderLeft = '3px solid #e85d75';
+        } else if (theme === 'ocean') {
+          blockquote.style.background = '#edf3fc';
+          blockquote.style.borderLeft = '3px solid #1e88e5';
+        } else if (theme === 'mint') {
+          blockquote.style.background = '#e8f7f5';
+          blockquote.style.borderLeft = '3px solid #14b8a6';
+          } else { // light theme
+          blockquote.style.background = '#f8f9fa';
+          blockquote.style.borderLeft = '3px solid #3182ce';
+        }
+      });
       }
       
       const dataUrl = await htmlToImage.toPng(currentRef, htmlToImageOptions);
@@ -2139,14 +2124,14 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
       
       // Restore original styles (only in markdown mode)
       if (mode === 'markdown') {
-        blockquotes.forEach((blockquote, index) => {
-          blockquote.style.background = originalBlockquoteStyles[index].background;
-          blockquote.style.borderLeft = originalBlockquoteStyles[index].borderLeft;
-          blockquote.style.borderImage = originalBlockquoteStyles[index].borderImage;
-          blockquote.style.borderImageSlice = originalBlockquoteStyles[index].borderImageSlice;
-          blockquote.style.backdropFilter = originalBlockquoteStyles[index].backdropFilter;
-          blockquote.style.boxShadow = originalBlockquoteStyles[index].boxShadow;
-        });
+      blockquotes.forEach((blockquote, index) => {
+        blockquote.style.background = originalBlockquoteStyles[index].background;
+        blockquote.style.borderLeft = originalBlockquoteStyles[index].borderLeft;
+        blockquote.style.borderImage = originalBlockquoteStyles[index].borderImage;
+        blockquote.style.borderImageSlice = originalBlockquoteStyles[index].borderImageSlice;
+        blockquote.style.backdropFilter = originalBlockquoteStyles[index].backdropFilter;
+        blockquote.style.boxShadow = originalBlockquoteStyles[index].boxShadow;
+      });
       }
       
       // Restore original styles and content of all elements
@@ -2188,27 +2173,7 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
     }
   };
 
-  // Advertisement initialization effect
-  useEffect(() => {
-    if (isAppRoute) {
-      try {
-        // Ensure global adsbygoogle object exists
-        if (window.adsbygoogle && window.adsbygoogle.push) {
-          // Try to initialize all ads after component mounting
-          const ads = document.querySelectorAll('.adsbygoogle');
-          ads.forEach(ad => {
-            try {
-              (window.adsbygoogle = window.adsbygoogle || []).push({});
-            } catch (e) {
-              console.error('Ad initialization failed:', e);
-            }
-          });
-        }
-      } catch (e) {
-        console.error('AdSense initialization error:', e);
-      }
-    }
-  }, [isAppRoute]); // Only run on component mount and isAppRoute change
+
 
   return (
     <>
@@ -2245,23 +2210,23 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
           
           <ControlGroup>
             {mode === 'markdown' && (
-              <Radio.Group
-                value={theme}
-                onChange={e => setTheme(e.target.value)}
-                buttonStyle="solid"
-                size="large"
-              >
-                <Radio.Button value="light">Light</Radio.Button>
-                <Radio.Button value="warm">Warm</Radio.Button>
-                <Radio.Button value="elegant">Elegant</Radio.Button>
-                <Radio.Button value="dark">Dark</Radio.Button>
-                <Radio.Button value="gradient">Gradient</Radio.Button>
-                <Radio.Button value="nature">Nature</Radio.Button>
-                <Radio.Button value="sunset">Sunset</Radio.Button>
-                <Radio.Button value="ocean">Ocean</Radio.Button>
-                <Radio.Button value="mint">Mint</Radio.Button>
+            <Radio.Group
+              value={theme}
+              onChange={e => setTheme(e.target.value)}
+              buttonStyle="solid"
+              size="large"
+            >
+              <Radio.Button value="light">Light</Radio.Button>
+              <Radio.Button value="warm">Warm</Radio.Button>
+              <Radio.Button value="elegant">Elegant</Radio.Button>
+              <Radio.Button value="dark">Dark</Radio.Button>
+              <Radio.Button value="gradient">Gradient</Radio.Button>
+              <Radio.Button value="nature">Nature</Radio.Button>
+              <Radio.Button value="sunset">Sunset</Radio.Button>
+              <Radio.Button value="ocean">Ocean</Radio.Button>
+              <Radio.Button value="mint">Mint</Radio.Button>
                 <Radio.Button value="tiffany">Tiffany</Radio.Button>
-              </Radio.Group>
+            </Radio.Group>
             )}
 
             <StyledButton 
@@ -2291,7 +2256,7 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
 
 
           {mode === 'markdown' && (
-            <SettingsPanel>
+          <SettingsPanel>
               {isCuttingMode && (
                 <div style={{ marginBottom: '20px' }}>
                   <div style={{ 
@@ -2335,35 +2300,35 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
                     children: (
                       <div className="tab-content">
                         <div className="setting-row">
-                          <div className="setting-item">
-                            <span>H1 Size</span>
-                            <InputNumber min={0.5} max={5} step={0.1} value={h1Size} onChange={setH1Size} />
-                          </div>
-                          <div className="setting-item">
-                            <span>H2 Size</span>
-                            <InputNumber min={0.5} max={5} step={0.1} value={h2Size} onChange={setH2Size} />
-                          </div>
-                          <div className="setting-item">
-                            <span>H3 Size</span>
-                            <InputNumber min={0.5} max={5} step={0.1} value={h3Size} onChange={setH3Size} />
-                          </div>
+            <div className="setting-item">
+              <span>H1 Size</span>
+              <InputNumber min={0.5} max={5} step={0.1} value={h1Size} onChange={setH1Size} />
+            </div>
+            <div className="setting-item">
+              <span>H2 Size</span>
+              <InputNumber min={0.5} max={5} step={0.1} value={h2Size} onChange={setH2Size} />
+            </div>
+            <div className="setting-item">
+              <span>H3 Size</span>
+              <InputNumber min={0.5} max={5} step={0.1} value={h3Size} onChange={setH3Size} />
+            </div>
                         </div>
                         <div className="setting-row">
-                          <div className="setting-item">
-                            <span>Heading Color</span>
+            <div className="setting-item">
+              <span>Heading Color</span>
                             <ColorPicker value={headingColor} onChange={(value, hex) => setHeadingColor(hex)} />
-                          </div>
-                          <div className="setting-item">
+            </div>
+            <div className="setting-item">
                             <span>Body Color</span>
                             <ColorPicker value={bodyColor} onChange={(value, hex) => setBodyColor(hex)} />
-                          </div>
-                          <div className="setting-item">
-                            <span>Body Size</span>
-                            <InputNumber min={10} max={40} value={bodyFontSize} onChange={setBodyFontSize} />
-                          </div>
+            </div>
+            <div className="setting-item">
+              <span>Body Size</span>
+              <InputNumber min={10} max={40} value={bodyFontSize} onChange={setBodyFontSize} />
+            </div>
                         </div>
                         <div className="setting-row">
-                          <div className="setting-item">
+            <div className="setting-item">
                             <span>Heading Font</span>
                             <Select
                               value={headingFontFamily}
@@ -2380,9 +2345,9 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
                                 </Select.Option>
                               ))}
                             </Select>
-                          </div>
-                          <div className="setting-item">
-                            <span>Body Font</span>
+            </div>
+            <div className="setting-item">
+              <span>Body Font</span>
                             <Select
                               value={bodyFontFamily}
                               onChange={setBodyFontFamily}
@@ -2398,17 +2363,17 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
                                 </Select.Option>
                               ))}
                             </Select>
-                          </div>
+            </div>
                         </div>
                         <div className="setting-row">
-                          <div className="setting-item">
+            <div className="setting-item">
                             <span>Background Color 1</span>
                             <ColorPicker value={bgColor1} onChange={(value, hex) => setBgColor1(hex)} />
-                          </div>
-                          <div className="setting-item">
+            </div>
+            <div className="setting-item">
                             <span>Background Color 2</span>
                             <ColorPicker value={bgColor2} onChange={(value, hex) => setBgColor2(hex)} />
-                          </div>
+            </div>
                         </div>
                       </div>
                     )
@@ -2544,67 +2509,67 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
                   }
                 ]}
               />
-            </SettingsPanel>
+          </SettingsPanel>
           )}
 
           <ContentLayout>
             {mode === 'markdown' ? (
               <>
-                <EditorSection>
-                  <EditorContainer>
-                    <MDEditor
-                      value={value}
-                      onChange={setValue}
-                      preview="edit"
-                      hideToolbar={false}
-                      enableScroll={true}
-                      textareaProps={{
-                        placeholder: 'Enter your Markdown content here...',
-                        style: {
-                          fontSize: '15px',
-                          lineHeight: '1.8',
-                          color: '#2c3e50',
-                          background: '#ffffff'
-                        }
-                      }}
-                      visibleDragbar={false}
-                      toolbarCommands={[
-                        ['bold', 'italic', 'strikethrough'],
-                        ['quote', 'unordered-list', 'ordered-list'],
-                        ['link', 'image']
-                      ]}
-                      previewOptions={{
-                        style: {
-                          color: '#2c3e50',
-                          background: '#ffffff'
-                        }
-                      }}
-                      style={{
-                        color: '#2c3e50',
-                        background: '#ffffff'
-                      }}
-                    />
-                  </EditorContainer>
-                </EditorSection>
+            <EditorSection>
+              <EditorContainer>
+                <MDEditor
+                  value={value}
+                  onChange={setValue}
+                  preview="edit"
+                  hideToolbar={false}
+                  enableScroll={true}
+                  textareaProps={{
+                    placeholder: 'Enter your Markdown content here...',
+                    style: {
+                      fontSize: '15px',
+                      lineHeight: '1.8',
+                      color: '#2c3e50',
+                      background: '#ffffff'
+                    }
+                  }}
+                  visibleDragbar={false}
+                  toolbarCommands={[
+                    ['bold', 'italic', 'strikethrough'],
+                    ['quote', 'unordered-list', 'ordered-list'],
+                    ['link', 'image']
+                  ]}
+                  previewOptions={{
+                    style: {
+                      color: '#2c3e50',
+                      background: '#ffffff'
+                    }
+                  }}
+                  style={{
+                    color: '#2c3e50',
+                    background: '#ffffff'
+                  }}
+                />
+              </EditorContainer>
+            </EditorSection>
 
-                <PreviewSection>
-                  <Spin spinning={loading}>
+            <PreviewSection>
+              <Spin spinning={loading}>
                     <div style={{ position: 'relative' }}>
-                      <PreviewContainer
-                        ref={previewRef}
-                        {...themes[theme]}
-                        theme={theme}
-                        bg1={bgColor1}
-                        bg2={bgColor2}
-                        backgroundType={bgColor1 !== bgColor2 ? 'gradient' : 'solid'}
-                        h1Size={h1Size}
-                        h2Size={h2Size}
-                        h3Size={h3Size}
-                        headingColor={headingColor}
-                        headingFontFamily={headingFontFamily}
-                        bodyColor={bodyColor}
-                        bodyFontFamily={bodyFontFamily}
-                        bodyFontSize={bodyFontSize}
+                <PreviewContainer
+                  ref={previewRef}
+                  {...themes[theme]}
+                  theme={theme}
+                  bg1={bgColor1}
+                  bg2={bgColor2}
+                  backgroundType={bgColor1 !== bgColor2 ? 'gradient' : 'solid'}
+                  h1Size={h1Size}
+                  h2Size={h2Size}
+                  h3Size={h3Size}
+                  headingColor={headingColor}
+                  headingFontFamily={headingFontFamily}
+                  bodyColor={bodyColor}
+                  bodyFontFamily={bodyFontFamily}
+                  bodyFontSize={bodyFontSize}
                         codeBlockFontSize={codeBlockFontSize}
                         codeBlockFontFamily={codeBlockFontFamily}
                         codeBlockBgColor={codeBlockBgColor}
@@ -2622,12 +2587,12 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
                           cursor: isCuttingMode ? 'crosshair' : 'default',
                           border: isCuttingMode ? '2px dashed #ef4444' : 'none'
                         }}
-                      >
-                        <MDEditor.Markdown 
-                          source={value} 
-                          rehypePlugins={[[rehypePrism, { showLineNumbers: true }]]}
-                        />
-                      </PreviewContainer>
+                >
+                  <MDEditor.Markdown 
+                    source={value} 
+                    rehypePlugins={[[rehypePrism, { showLineNumbers: true }]]}
+                  />
+                </PreviewContainer>
                       
                       {/* Cut lines overlay */}
                       {showCutLines && cutLines.map((y, index) => (
@@ -2664,8 +2629,8 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
                         </div>
                       )}
                     </div>
-                  </Spin>
-                </PreviewSection>
+              </Spin>
+            </PreviewSection>
               </>
             ) : (
               <>
@@ -3095,35 +3060,7 @@ Ready to transform your Markdown into beautiful images? Start creating now!`);
             )}
           </ContentLayout>
 
-          {/* AdSense广告单元 - 第一个广告位 */}
-          <AdBanner>
-            <ins className="adsbygoogle"
-                 style={{ display: 'block' }}
-                 data-ad-client="ca-pub-9798575917692871"
-                 data-ad-slot="3180808479"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true" />
-          </AdBanner>
 
-          {/* AdSense广告单元 - 第二个广告位 */}
-          <AdBanner style={{ marginTop: '60px' }}>
-            <ins className="adsbygoogle"
-                 style={{ display: 'block' }}
-                 data-ad-client="ca-pub-9798575917692871"
-                 data-ad-slot="2290871395"
-                 data-ad-format="auto"
-                 data-full-width-responsive="true" />
-          </AdBanner>
-
-          {/* AdSense广告单元 - 第三个广告位 */}
-          <AdBanner style={{ marginTop: '60px' }}>
-            <ins className="adsbygoogle"
-                 style={{ display: 'block' }}
-                 data-ad-client="ca-pub-9798575917692871"
-                 data-ad-slot="8950405245"
-                 data-ad-format="auto" 
-                 data-full-width-responsive="true" />
-          </AdBanner>
 
           <Copyright>
             <div style={{ marginBottom: '12px', fontSize: '14px', color: '#8b9dc3', fontStyle: 'italic' }}>
