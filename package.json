@@ -9,6 +9,7 @@
     "antd": "^5.24.0",
     "cra-template": "1.2.0",
     "html-to-image": "^1.11.13",
+    "playwright": "^1.53.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-scripts": "5.0.1",
